@@ -1,0 +1,592 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */; };
+		A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */; };
+		A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */; };
+		A180D2F72BD9845E005D512F /* ImportLogListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */; };
+		A180D2FF2BD98CED005D512F /* ImportLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D2FE2BD98CED005D512F /* ImportLogListView.swift */; };
+		A180D3032BD9B603005D512F /* ImportLogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D3022BD9B603005D512F /* ImportLogItem.swift */; };
+		A18DD47E2BC8B41F00877DB1 /* LogFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */; };
+		A18DD47F2BC8B41F00877DB1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD47C2BC8B41F00877DB1 /* User.swift */; };
+		A18DD4A22BC8B44400877DB1 /* Firestorequery.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */; };
+		A18DD4A42BC8B44400877DB1 /* LogFlightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49C2BC8B44400877DB1 /* LogFlightViewModel.swift */; };
+		A18DD4A52BC8B44400877DB1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49D2BC8B44400877DB1 /* LoginViewModel.swift */; };
+		A18DD4A62BC8B44400877DB1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */; };
+		A18DD4A72BC8B44400877DB1 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */; };
+		A18DD4A82BC8B44400877DB1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */; };
+		A18DD4B72BC8B4B400877DB1 /* albutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AB2BC8B4B400877DB1 /* albutton.swift */; };
+		A18DD4B82BC8B4B400877DB1 /* Headerview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */; };
+		A18DD4B92BC8B4B400877DB1 /* LogBookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */; };
+		A18DD4BA2BC8B4B400877DB1 /* LogbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */; };
+		A18DD4BB2BC8B4B400877DB1 /* LogFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */; };
+		A18DD4BC2BC8B4B400877DB1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B02BC8B4B400877DB1 /* LoginView.swift */; };
+		A18DD4BE2BC8B4B400877DB1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B22BC8B4B400877DB1 /* MainView.swift */; };
+		A18DD4BF2BC8B4B400877DB1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */; };
+		A18DD4C02BC8B4B400877DB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */; };
+		A18DD4C12BC8B4B400877DB1 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */; };
+		A18DD4C42BC8B65900877DB1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C32BC8B65900877DB1 /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
+		A18DD4C62BC8B65900877DB1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C52BC8B65900877DB1 /* FirebaseFirestore */; };
+		A18DD4C82BC8B65900877DB1 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C72BC8B65900877DB1 /* FirebaseFirestoreSwift */; };
+		A18DD4CA2BC8B9A700877DB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A18DD4C92BC8B9A700877DB1 /* GoogleService-Info.plist */; };
+		A18DD4D42BC8C27C00877DB1 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4D32BC8C27C00877DB1 /* extension.swift */; };
+		A1923CC62C0FC3D300641403 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */; };
+		A1923CC82C0FC43100641403 /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1923CC72C0FC43100641403 /* DeleteAccountViewModel.swift */; };
+		A195EE892C091A4C002A4EF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A195EE882C091A4C002A4EF2 /* PrivacyInfo.xcprivacy */; };
+		A195EE8B2C092768002A4EF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A195EE8A2C092768002A4EF2 /* Preview Assets.xcassets */; };
+		A19631562BC8B1A000EA3144 /* Aces_Flight_LogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19631552BC8B1A000EA3144 /* Aces_Flight_LogApp.swift */; };
+		A196315A2BC8B1A100EA3144 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A19631592BC8B1A100EA3144 /* Assets.xcassets */; };
+		A19851A32C089E600054FAA7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19851A22C089E600054FAA7 /* StoreKit.framework */; };
+		A19851A72C08C33A0054FAA7 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19851A62C08C33A0054FAA7 /* UserViewModel.swift */; };
+		A19F532C2C089B270049313D /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532B2C089B270049313D /* ReceiptParser */; };
+		A19F532E2C089B380049313D /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532D2C089B380049313D /* RevenueCat */; };
+		A19F53302C089B4C0049313D /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532F2C089B4C0049313D /* RevenueCatUI */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportLogItemView.swift; sourceTree = "<group>"; };
+		A12EDC8B2BE8CEA5001D0859 /* Aces Flight Log.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Aces Flight Log.entitlements"; sourceTree = "<group>"; };
+		A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogListViewModel.swift; sourceTree = "<group>"; };
+		A180D2FE2BD98CED005D512F /* ImportLogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogListView.swift; sourceTree = "<group>"; };
+		A180D3022BD9B603005D512F /* ImportLogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogItem.swift; sourceTree = "<group>"; };
+		A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFlight.swift; sourceTree = "<group>"; };
+		A18DD47C2BC8B41F00877DB1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firestorequery.swift; sourceTree = "<group>"; };
+		A18DD49C2BC8B44400877DB1 /* LogFlightViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFlightViewModel.swift; sourceTree = "<group>"; };
+		A18DD49D2BC8B44400877DB1 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		A18DD4AB2BC8B4B400877DB1 /* albutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = albutton.swift; sourceTree = "<group>"; };
+		A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Headerview.swift; sourceTree = "<group>"; };
+		A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogBookItemView.swift; sourceTree = "<group>"; };
+		A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogbookView.swift; sourceTree = "<group>"; };
+		A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFlightView.swift; sourceTree = "<group>"; };
+		A18DD4B02BC8B4B400877DB1 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A18DD4B22BC8B4B400877DB1 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
+		A18DD4C92BC8B9A700877DB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A18DD4D32BC8C27C00877DB1 /* extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
+		A1923CC72C0FC43100641403 /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
+		A195EE852C0909FA002A4EF2 /* Aces Flight Log.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Aces Flight Log.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A195EE882C091A4C002A4EF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A195EE8A2C092768002A4EF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A19631552BC8B1A000EA3144 /* Aces_Flight_LogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aces_Flight_LogApp.swift; sourceTree = "<group>"; };
+		A19631592BC8B1A100EA3144 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A19851A22C089E600054FAA7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		A19851A62C08C33A0054FAA7 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		A1A86C852C0E0C1100130DD9 /* Aces Flight LogRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Aces Flight LogRelease.entitlements"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A196314F2BC8B1A000EA3144 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A18DD4C42BC8B65900877DB1 /* FirebaseAuth in Frameworks */,
+				A19851A32C089E600054FAA7 /* StoreKit.framework in Frameworks */,
+				A18DD4C62BC8B65900877DB1 /* FirebaseFirestore in Frameworks */,
+				A19F53302C089B4C0049313D /* RevenueCatUI in Frameworks */,
+				A19F532E2C089B380049313D /* RevenueCat in Frameworks */,
+				A19F532C2C089B270049313D /* ReceiptParser in Frameworks */,
+				A18DD4C82BC8B65900877DB1 /* FirebaseFirestoreSwift in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A18DD47D2BC8B41F00877DB1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */,
+				A180D3022BD9B603005D512F /* ImportLogItem.swift */,
+				A18DD47C2BC8B41F00877DB1 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A18DD4A12BC8B44400877DB1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */,
+				A18DD49D2BC8B44400877DB1 /* LoginViewModel.swift */,
+				A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */,
+				A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */,
+				A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */,
+				A18DD49C2BC8B44400877DB1 /* LogFlightViewModel.swift */,
+				A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */,
+				A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */,
+				A19851A62C08C33A0054FAA7 /* UserViewModel.swift */,
+				A1923CC72C0FC43100641403 /* DeleteAccountViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A18DD4B62BC8B4B400877DB1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A18DD4B22BC8B4B400877DB1 /* MainView.swift */,
+				A18DD4B02BC8B4B400877DB1 /* LoginView.swift */,
+				A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */,
+				A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */,
+				A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */,
+				A180D2FE2BD98CED005D512F /* ImportLogListView.swift */,
+				A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */,
+				A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */,
+				A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */,
+				A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */,
+				A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */,
+				A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */,
+				A18DD4AB2BC8B4B400877DB1 /* albutton.swift */,
+				A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A19631492BC8B1A000EA3144 = {
+			isa = PBXGroup;
+			children = (
+				A195EE852C0909FA002A4EF2 /* Aces Flight Log.app */,
+				A19631542BC8B1A000EA3144 /* Aces Flight Log */,
+				A18DD4A12BC8B44400877DB1 /* ViewModels */,
+				A18DD4B62BC8B4B400877DB1 /* Views */,
+				A18DD47D2BC8B41F00877DB1 /* Models */,
+				A19851A12C089E600054FAA7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A19631542BC8B1A000EA3144 /* Aces Flight Log */ = {
+			isa = PBXGroup;
+			children = (
+				A19631552BC8B1A000EA3144 /* Aces_Flight_LogApp.swift */,
+				A18DD4D32BC8C27C00877DB1 /* extension.swift */,
+				A19631592BC8B1A100EA3144 /* Assets.xcassets */,
+				A195EE8A2C092768002A4EF2 /* Preview Assets.xcassets */,
+				A12EDC8B2BE8CEA5001D0859 /* Aces Flight Log.entitlements */,
+				A1A86C852C0E0C1100130DD9 /* Aces Flight LogRelease.entitlements */,
+				A195EE882C091A4C002A4EF2 /* PrivacyInfo.xcprivacy */,
+				A18DD4C92BC8B9A700877DB1 /* GoogleService-Info.plist */,
+			);
+			path = "Aces Flight Log";
+			sourceTree = "<group>";
+		};
+		A19851A12C089E600054FAA7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A19851A22C089E600054FAA7 /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A19631512BC8B1A000EA3144 /* Aces Flight Log */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A19631602BC8B1A100EA3144 /* Build configuration list for PBXNativeTarget "Aces Flight Log" */;
+			buildPhases = (
+				A196314E2BC8B1A000EA3144 /* Sources */,
+				A196314F2BC8B1A000EA3144 /* Frameworks */,
+				A19631502BC8B1A000EA3144 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Aces Flight Log";
+			packageProductDependencies = (
+				A18DD4C32BC8B65900877DB1 /* FirebaseAuth */,
+				A18DD4C52BC8B65900877DB1 /* FirebaseFirestore */,
+				A18DD4C72BC8B65900877DB1 /* FirebaseFirestoreSwift */,
+				A19F532B2C089B270049313D /* ReceiptParser */,
+				A19F532D2C089B380049313D /* RevenueCat */,
+				A19F532F2C089B4C0049313D /* RevenueCatUI */,
+			);
+			productName = "Aces Flight Log";
+			productReference = A195EE852C0909FA002A4EF2 /* Aces Flight Log.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A196314A2BC8B1A000EA3144 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					A19631512BC8B1A000EA3144 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = A196314D2BC8B1A000EA3144 /* Build configuration list for PBXProject "Aces Flight Log" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A19631492BC8B1A000EA3144;
+			packageReferences = (
+				A18DD4C22BC8B65900877DB1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A1777B6D2C08920D00A03799 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
+			productRefGroup = A19631492BC8B1A000EA3144;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A19631512BC8B1A000EA3144 /* Aces Flight Log */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A19631502BC8B1A000EA3144 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A195EE8B2C092768002A4EF2 /* Preview Assets.xcassets in Resources */,
+				A196315A2BC8B1A100EA3144 /* Assets.xcassets in Resources */,
+				A195EE892C091A4C002A4EF2 /* PrivacyInfo.xcprivacy in Resources */,
+				A18DD4CA2BC8B9A700877DB1 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A196314E2BC8B1A000EA3144 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */,
+				A180D3032BD9B603005D512F /* ImportLogItem.swift in Sources */,
+				A18DD47F2BC8B41F00877DB1 /* User.swift in Sources */,
+				A18DD4A42BC8B44400877DB1 /* LogFlightViewModel.swift in Sources */,
+				A19851A72C08C33A0054FAA7 /* UserViewModel.swift in Sources */,
+				A1923CC62C0FC3D300641403 /* DeleteAccountView.swift in Sources */,
+				A18DD47E2BC8B41F00877DB1 /* LogFlight.swift in Sources */,
+				A18DD4B82BC8B4B400877DB1 /* Headerview.swift in Sources */,
+				A18DD4A52BC8B44400877DB1 /* LoginViewModel.swift in Sources */,
+				A180D2FF2BD98CED005D512F /* ImportLogListView.swift in Sources */,
+				A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */,
+				A180D2F72BD9845E005D512F /* ImportLogListViewModel.swift in Sources */,
+				A1923CC82C0FC43100641403 /* DeleteAccountViewModel.swift in Sources */,
+				A18DD4A72BC8B44400877DB1 /* RegisterViewModel.swift in Sources */,
+				A18DD4BA2BC8B4B400877DB1 /* LogbookView.swift in Sources */,
+				A18DD4A22BC8B44400877DB1 /* Firestorequery.swift in Sources */,
+				A18DD4B72BC8B4B400877DB1 /* albutton.swift in Sources */,
+				A18DD4A62BC8B44400877DB1 /* MainViewModel.swift in Sources */,
+				A18DD4C12BC8B4B400877DB1 /* StartPageView.swift in Sources */,
+				A18DD4BF2BC8B4B400877DB1 /* RegisterView.swift in Sources */,
+				A19631562BC8B1A000EA3144 /* Aces_Flight_LogApp.swift in Sources */,
+				A18DD4BC2BC8B4B400877DB1 /* LoginView.swift in Sources */,
+				A18DD4BE2BC8B4B400877DB1 /* MainView.swift in Sources */,
+				A18DD4BB2BC8B4B400877DB1 /* LogFlightView.swift in Sources */,
+				A18DD4A82BC8B44400877DB1 /* SettingsViewModel.swift in Sources */,
+				A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */,
+				A18DD4C02BC8B4B400877DB1 /* SettingsView.swift in Sources */,
+				A18DD4B92BC8B4B400877DB1 /* LogBookItemView.swift in Sources */,
+				A18DD4D42BC8C27C00877DB1 /* extension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A196315E2BC8B1A100EA3144 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A196315F2BC8B1A100EA3144 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A19631612BC8B1A100EA3144 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Aces Flight Log/Aces Flight Log.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Aces Flight Log/Preview Content\"";
+				DEVELOPMENT_TEAM = K498LX9UMP;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Aces-Flight-Log-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ACES FLIGHT LOG";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A19631622BC8B1A100EA3144 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = "Aces Flight Log/Aces Flight LogRelease.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Aces Flight Log/Preview Content\"";
+				DEVELOPMENT_TEAM = K498LX9UMP;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Aces-Flight-Log-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ACES FLIGHT LOG";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.4;
+				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A196314D2BC8B1A000EA3144 /* Build configuration list for PBXProject "Aces Flight Log" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A196315E2BC8B1A100EA3144 /* Debug */,
+				A196315F2BC8B1A100EA3144 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A19631602BC8B1A100EA3144 /* Build configuration list for PBXNativeTarget "Aces Flight Log" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A19631612BC8B1A100EA3144 /* Debug */,
+				A19631622BC8B1A100EA3144 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1777B6D2C08920D00A03799 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.41.2;
+			};
+		};
+		A18DD4C22BC8B65900877DB1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.24.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A18DD4C32BC8B65900877DB1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A18DD4C22BC8B65900877DB1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		A18DD4C52BC8B65900877DB1 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A18DD4C22BC8B65900877DB1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		A18DD4C72BC8B65900877DB1 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A18DD4C22BC8B65900877DB1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		A19F532B2C089B270049313D /* ReceiptParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1777B6D2C08920D00A03799 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = ReceiptParser;
+		};
+		A19F532D2C089B380049313D /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1777B6D2C08920D00A03799 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		A19F532F2C089B4C0049313D /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1777B6D2C08920D00A03799 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A196314A2BC8B1A000EA3144 /* Project object */;
+}
