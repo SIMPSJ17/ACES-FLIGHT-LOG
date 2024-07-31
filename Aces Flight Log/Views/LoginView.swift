@@ -1,3 +1,10 @@
+//
+//  LOGINVIEW.swift
+//  Aces Flight Log
+//
+//  Created by Jordan Simpson on 7/29/24.
+//
+
 import SwiftUI
 
 struct LoginView: View {
@@ -6,93 +13,162 @@ struct LoginView: View {
     @State private var isForgotPasswordPresented = false
     
     var body: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                VStack {
-                    //HEADER
-                    Headerview(title: "ACES LOGBOOK",
-                               subtitle: "You Boys Like Mexico?",
-                               angle: -100,
-                               backgroundcolor: .red)
-                    .offset(y: -155)
-                    //LOGIN FORMS
-                    Form {
-                        if !viewmodel.errorMessage.isEmpty{
-                            Text(viewmodel.errorMessage)
-                                .foregroundColor(.red)
-                        }
-                        TextField("Email Address", text: $viewmodel.email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .autocorrectionDisabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                        SecureField("Password", text: $viewmodel.password)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
-                            .autocorrectionDisabled(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                        albutton(title: "LOGIN", bgroundcolor: .green) {
-                            viewmodel.login()
-                        }
+        VStack(spacing: 45) {
+            logintopview()
+            
+            loginemailTF(viewmodel: viewmodel)
+            
+            VStack(alignment: .trailing, spacing: 10) {
+                loginpasswordTF(viewmodel: viewmodel)
+                HStack {
+                    Button("Forgot Password") {
+                        isForgotPasswordPresented = true
                     }
-                    //navigate to forgot password page
-                    NavigationLink("Forgot Password", destination: ForgotPasswordView())
-                        .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
-                    
-                }.scenePadding()
-                VStack {
-                    Text("New Here?")
-                        .font(.system(size: 30))
-                        .foregroundColor(.black)
-                        .padding()
-                    NavigationLink("Create An Account ", destination: RegisterView())
+                    .font(.footnote)
+                    .foregroundColor(.primary)
                 }
-            }.navigationBarBackButtonHidden(true)
-        } else {
+            }
             VStack {
-                //HEADER
-                Headerview(title: "ACES LOGBOOK",
-                           subtitle: "You Boys Like Mexico?",
-                           angle: -100,
-                           backgroundcolor: .red)
-                    .offset(y: -155)
-                //LOGIN FORMS
-                Form {
-                    if !viewmodel.errorMessage.isEmpty {
-                        Text(viewmodel.errorMessage)
-                            .foregroundColor(.red)
-                    }
-                    TextField("Email Address", text: $viewmodel.email)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .autocorrectionDisabled(true)
-                    SecureField("Password", text: $viewmodel.password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .autocorrectionDisabled(true)
-                    albutton(title: "LOGIN", bgroundcolor: .green) {
-                        viewmodel.login()
-                    }
+                if !viewmodel.errorMessage.isEmpty {
+                    Text(viewmodel.errorMessage)
+                        .foregroundColor(.red)
                 }
-                //navigate to forgot password page
-                Button("Forgot Password") {
-                    isForgotPasswordPresented = true
+            }
+            loginbutton(viewmodel: viewmodel)
+            Button(action: {
+                viewmodel.email = ""
+                viewmodel.password = ""
+                withAnimation {
+                    isRegisterViewPresented.toggle()
                 }
-                .foregroundColor(.blue)
-                // "Create An Account" button
-                Button("Create An Account") {
-                    isRegisterViewPresented = true
-                }
-                .sheet(isPresented: $isRegisterViewPresented) {
-                    RegisterView()
-                }
-                .sheet(isPresented: $isForgotPasswordPresented) {
-                    ForgotPasswordView()
-                }
-                .scenePadding()
-                .navigationBarBackButtonHidden(true)
+            }, label: {
+                Text("Don't have an Account? Signup")
+                    .foregroundColor(.primary)
+            })
+        }
+        .padding(.horizontal)
+        .fullScreenCover(isPresented: $isRegisterViewPresented) {
+            RegisterView()
+        }
+        .fullScreenCover(isPresented: $isForgotPasswordPresented) {
+            ForgotPasswordView()
+        }
+    }
+}
+
+struct logintopview: View {
+    var body: some View {
+        VStack(spacing: 0){
+            Text("ACES FLIGHT LOG")
+                .fontWeight(.bold)
+                .foregroundColor(.red)
+                .font(.system(size: 300))  // 1
+                .minimumScaleFactor(0.01)
+                .lineLimit(1)
+
+            HStack {
+                Image("uh60")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Image("ah64")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Image("ch47")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Image("uh72")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
             }
         }
     }
 }
+
+struct loginemailTF: View {
+    @ObservedObject var viewmodel: LoginViewModel
+    @FocusState var isActive
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 16) {
+            ZStack(alignment: .leading) {
+                TextField("", text: $viewmodel.email)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55).focused($isActive)
+                    .background(.gray.opacity(0.3), in: .rect(cornerRadius: 16))
+                Text("Email").padding(.leading)
+                    .offset(y: (isActive || !viewmodel.email.isEmpty) ? -35 : 0)
+                    .animation(.spring, value: isActive)
+                    .onTapGesture {
+                        isActive = true
+                    }
+            }
+        }
+    }
+}
+
+struct loginpasswordTF: View {
+    @ObservedObject var viewmodel: LoginViewModel
+    @State var showPassword = false
+    @FocusState var isActive
+    
+    var body: some View{
+        VStack(alignment: .center, spacing: 16) {
+            ZStack(alignment: .leading) {
+                SecureField("", text: $viewmodel.password)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55).focused($isActive)
+                    .background(.gray.opacity(0.3), in: .rect(cornerRadius: 16))
+                    .opacity(showPassword ? 0 : 1)
+                TextField("", text: $viewmodel.password)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55).focused($isActive)
+                    .background(.gray.opacity(0.3), in: .rect(cornerRadius: 16))
+                    .opacity(showPassword ? 1 : 0)
+                Text("Password").padding(.leading)
+                    .offset(y: (isActive || !viewmodel.password.isEmpty) ? -35 : 0)
+                    .animation(.spring, value: isActive)
+                    .onTapGesture {
+                        isActive = true
+                    }
+            }.overlay(alignment: .trailing){
+                Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
+                    .padding(16)
+                    .contentShape(Rectangle())
+                    .foregroundStyle(showPassword ? .primary : .secondary)
+                    .onTapGesture {
+                        showPassword.toggle()
+                    }
+            }
+        }
+    }
+}
+
+struct loginbutton: View {
+    @ObservedObject var viewmodel: LoginViewModel
+    var body: some View {
+        Button(action: { viewmodel.login(); print(viewmodel.email); print(viewmodel.password); print(viewmodel.errorMessage) }, label: {
+            Text("Sign In").foregroundStyle(.background).font(.title2.bold())
+                .frame(maxWidth: .infinity)
+                .frame(height: 55)
+                .background(.primary, in: .rect(cornerRadius: 16))
+        })
+        .tint(.primary)
+    }
+}
+
 #Preview {
     LoginView()
 }

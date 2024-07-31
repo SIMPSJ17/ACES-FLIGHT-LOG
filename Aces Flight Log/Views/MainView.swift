@@ -30,7 +30,7 @@ struct MainView: View {
     @ViewBuilder
     var accountView: some View {
         TabView {
-            StartPageView(userId: viewModel.currentUserId)
+            CardView(userId: viewModel.currentUserId)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }

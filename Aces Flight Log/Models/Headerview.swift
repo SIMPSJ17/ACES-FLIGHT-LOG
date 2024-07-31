@@ -22,7 +22,6 @@ struct Headerview: View {
                     Text(subtitle)
                         .font(.system(size: geometry.size.width * 0.08)) // Scale font size based on width
                         .foregroundColor(.black)
-
                 }
             }
             .frame(width: geometry.size.width) // Match parent width

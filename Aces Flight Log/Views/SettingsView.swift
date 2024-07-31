@@ -1,231 +1,233 @@
 import SwiftUI
-import UIKit
 
 struct SettingsView: View {
     @StateObject var viewmodel = SettingsViewModel()
-    @StateObject var firestoreQuery = Firestorequery(userId: "Xvsr8jFbxbglwDdCyI8ifgEOKgx2")
-    @State private var displayedBirthday: String = ""
-    @State private var displayedCMStatus: String = ""
-    @State private var displayedAircraft: String = ""
-    @State private var displayedAthrs: String = ""
-    @State private var displayedAnhrs: String = ""
-    @State private var displayedAnghrs: String = ""
-    @State private var displayedAnshrs: String = ""
-    @State private var displayedAhwxhrs: String = ""
-    @State private var displayedFronthrs: String = ""
-    @State private var displayedBackhrs: String = ""
-    @State private var displayedsimhrs: String = ""
-    @State private var displayedsimseatFhrs: String = ""
-    @State private var displayedsimseatBhrs: String = ""
+    @StateObject var pickermodel = pickerlist()
+    
     @State private var showingLogoutAlert = false
     @State private var showingDeleteAccount = false
-    
-    var aircraft = ["UH-60L", "UH-60M", "HH-60L", "HH-60M", "CH-47", "AH-64E", "AH-64D", "MH-60M", "MH-47G", "UH-72A"]
+
     var cmstatus = ["RCM", "NRCM"]
     
     var body: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
+        GeometryReader { geometry in
+            NavigationView {
                 VStack {
-                    Text("SETTINGS")
+                    Text("Settings")
                         .font(.largeTitle)
                         .bold()
                         .foregroundColor(.red)
                     
-                    ScrollView {
+                    Form {
                         HStack {
-                            // Display user settings using @State properties
-                            Text(displayedBirthday)
-                                .padding()
-                            Text(displayedCMStatus)
-                                .padding()
-                            Text(displayedAircraft)
-                                .padding()
+                            Text("Email")
+                                .font(.system(size: 20))
+                            Spacer()
+                            Text("\(viewmodel.userEmail)")
+                                .frame(alignment: .trailing)
                         }
-                        .offset(y: -10)
-                        Text("Required Hours")
-                            .font(.system(size: 30))
-                        HStack {
-                            Text("Total: \(displayedAthrs)")
-                            Text("NVG: \(displayedAnghrs)")
-                            if SettingsManager.shared.aircraft == "AH-64E" ||  SettingsManager.shared.aircraft == "AH-64D" {
-                                Text("NS: \(displayedAnshrs)")
-                            }
-                        }
-                        if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                            HStack{
-                                Text("Front: \(displayedFronthrs)")
-                                Text("Back: \(displayedBackhrs)")
-                            }
-                        }
-                        HStack {
-                            Text("N: \(displayedAnhrs)")
-                            Text("H/WX: \(displayedAhwxhrs)")
-                            Text("Sim: \(displayedsimhrs)")
-                        }
-                        if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                            HStack {
-                                Text("Front Sim: \(displayedsimseatFhrs)")
-                                Text("Back Sim: \(displayedsimseatBhrs)")
-                            }
-                        }
-                        Text("Birthday")
-                            .font(.system(size: 30))
-                            .scenePadding()
-                        DatePicker("Select a date", selection: $viewmodel.bday, displayedComponents: .date)
+                        
+                        Section {
+                            DatePicker(
+                                "Birthday",
+                                selection: $viewmodel.bday,
+                                displayedComponents: .date
+                            )
                             .datePickerStyle(CompactDatePickerStyle())
-                            .labelsHidden()
-                        Text("Rated/NonRated")
-                            .font(.system(size: 30))
-                        if #available(iOS 17.0, *) {
-                            Picker(selection: $viewmodel.cmstatus, label: Text("CM STATUS")) {
+                            .onChange(of: viewmodel.bday) { newBday in
+                                SettingsManager.shared.birthday = newBday
+                            }
+                            
+                            Picker("CM Status", selection: $viewmodel.cmstatus) {
                                 ForEach(cmstatus, id: \.self) { status in
                                     Text(status)
                                 }
-                            }.pickerStyle(.palette)
-                                .padding(.horizontal)
-                        } else {
-                            // Fallback on earlier versions
-                        }
-                        
-                        Text("AIRCRAFT")
-                            .font(.system(size: 30))
-                        Picker(selection: $viewmodel.acft, label: Text("Aircraft")) {
-                            ForEach(aircraft, id: \.self) { type in
-                                Text(type)
+                            }
+                            .onChange(of: viewmodel.cmstatus) { newCMStatus in
+                                SettingsManager.shared.cmstatus = newCMStatus
+                            }
+                            
+                            Picker("Aircraft", selection: $viewmodel.acft) {
+                                ForEach(pickermodel.aircraft.sorted(), id: \.self) { type in
+                                    Text(type)
+                                }
+                            }
+                            .onChange(of: viewmodel.acft) { newValue in
+                                SettingsManager.shared.aircraft = newValue
                             }
                         }
                         
-                        Text("SemiAnnual Requirements")
-                            .font(.system(size: 30))
-                        HStack {
-                            VStack {
-                                Text("Total")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.semithrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)
+                        Section("Semi Annual Aircraft Hours") {
+                            NavigationLink(destination: HourPickerView(label: "Total", binding: $viewmodel.semithrsmin)) {
+                                HStack {
+                                    Text("Total")
+                                        .font(.system(size: 20))
+                                    Spacer()
+                                    Text(viewmodel.semithrsmin)
+                                        .frame(width: 50, alignment: .trailing)
+                                }
+                            }
+                            .onChange(of: viewmodel.semithrsmin) { newValue in
+                                if let intValue = Int(newValue) {
+                                    SettingsManager.shared.semithrs = intValue
+                                }
+                            }
                             
-                            VStack {
-                                Text("Night")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.seminhrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)
+                            NavigationLink(destination: HourPickerView(label: "Night", binding: $viewmodel.seminhrsmin)) {
+                                HStack {
+                                    Text("Night")
+                                        .font(.system(size: 20))
+                                    Spacer()
+                                    Text(viewmodel.seminhrsmin)
+                                        .frame(width: 50, alignment: .trailing)
+                                }
+                            }
+                            .onChange(of: viewmodel.seminhrsmin) { newValue in
+                                if let intValue = Int(newValue) {
+                                    SettingsManager.shared.seminhrs = intValue
+                                }
+                            }
                             
-                            VStack {
-                                Text("NVG")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.seminghrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)
-                        }
-                        
-                        HStack {
+                            NavigationLink(destination: HourPickerView(label: "NVG", binding: $viewmodel.seminghrsmin)) {
+                                HStack {
+                                    Text("NVG")
+                                        .font(.system(size: 20))
+                                    Spacer()
+                                    Text(viewmodel.seminghrsmin)
+                                        .frame(width: 50, alignment: .trailing)
+                                }
+                            }
+                            .onChange(of: viewmodel.seminghrsmin) { newValue in
+                                if let intValue = Int(newValue) {
+                                    SettingsManager.shared.seminghrs = intValue
+                                }
+                            }
+                            
                             if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                                VStack {
-                                    Text("NS")
+                                NavigationLink(destination: HourPickerView(label: "NS", binding: $viewmodel.seminshrsmin)) {
+                                    HStack {
+                                        Text("NS")
+                                            .font(.system(size: 20))
+                                        Spacer()
+                                        Text(viewmodel.seminshrsmin)
+                                            .frame(width: 50, alignment: .trailing)
+                                    }
+                                }
+                                .onChange(of: viewmodel.seminshrsmin) { newValue in
+                                    if let intValue = Int(newValue) {
+                                        SettingsManager.shared.seminshrs = intValue
+                                    }
+                                }
+                            }
+                            
+                            NavigationLink(destination: HourPickerView(label: "Hood/Wx", binding: $viewmodel.semihwxhrsmin)) {
+                                HStack {
+                                    Text("Hood/Wx")
                                         .font(.system(size: 20))
-                                    TextField("0", text: $viewmodel.seminshrsmin)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .disableAutocorrection(true)
-                                        .frame(width: 50)
-                                }.padding(.horizontal)}
-                            VStack {
-                                Text("H/WX")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.semihwxhrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)
-                        }
-                        if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                            HStack {
-                                VStack {
-                                    Text("Front")
-                                        .font(.system(size: 20))
-                                    TextField("0", text: $viewmodel.semifronthrsmin)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .disableAutocorrection(true)
-                                        .frame(width: 50)
-                                }.padding(.horizontal)
+                                    Spacer()
+                                    Text(viewmodel.semihwxhrsmin)
+                                        .frame(width: 50, alignment: .trailing)
+                                }
+                            }
+                            .onChange(of: viewmodel.semihwxhrsmin) { newValue in
+                                if let intValue = Int(newValue) {
+                                    SettingsManager.shared.semihwxhrs = intValue
+                                }
+                            }
+                            
+                            if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
+                                NavigationLink(destination: HourPickerView(label: "Front", binding: $viewmodel.semifronthrsmin)) {
+                                    HStack {
+                                        Text("Front")
+                                            .font(.system(size: 20))
+                                        Spacer()
+                                        Text(viewmodel.semifronthrsmin)
+                                            .frame(width: 50, alignment: .trailing)
+                                    }
+                                }
+                                .onChange(of: viewmodel.semifronthrsmin) { newValue in
+                                    if let intValue = Int(newValue) {
+                                        SettingsManager.shared.semifronthrs = intValue
+                                    }
+                                }
                                 
-                                VStack {
-                                    Text("Back")
-                                        .font(.system(size: 20))
-                                    TextField("0", text: $viewmodel.semibackhrsmin)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .disableAutocorrection(true)
-                                        .frame(width: 50)
-                                    
-                                }.padding(.horizontal)
+                                NavigationLink(destination: HourPickerView(label: "Back", binding: $viewmodel.semibackhrsmin)) {
+                                    HStack {
+                                        Text("Back")
+                                            .font(.system(size: 20))
+                                        Spacer()
+                                        Text(viewmodel.semibackhrsmin)
+                                            .frame(width: 50, alignment: .trailing)
+                                    }
+                                }
+                                .onChange(of: viewmodel.semibackhrsmin) { newValue in
+                                    if let intValue = Int(newValue) {
+                                        SettingsManager.shared.semibackhrs = intValue
+                                    }
+                                }
                             }
                         }
-                        Text("SIM Requirements")
-                            .font(.system(size: 30))
-                        HStack{
-                            VStack {
-                                Text("TOTAL SIM")
-                                TextField("0", text: $viewmodel.asimhrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
+                        
+                        Section("Annual Sim Hours") {
+                            NavigationLink(destination: HourPickerView(label: "Total Sim", binding: $viewmodel.asimhrsmin)) {
+                                HStack {
+                                    Text("Total Sim")
+                                        .font(.system(size: 20))
+                                    Spacer()
+                                    Text(viewmodel.asimhrsmin)
+                                        .frame(width: 50, alignment: .trailing)
+                                }
                             }
+                            .onChange(of: viewmodel.asimhrsmin) { newValue in
+                                if let intValue = Int(newValue) {
+                                    SettingsManager.shared.asimhrs = intValue
+                                }
+                            }
+                            
                             if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                                VStack {
-                                    Text("Front SIM")
-                                        .font(.system(size: 20))
-                                    TextField("0", text: $viewmodel.asimfronthrsmin)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .disableAutocorrection(true)
-                                        .frame(width: 50)
+                                NavigationLink(destination: HourPickerView(label: "Front Sim", binding: $viewmodel.asimfronthrsmin)) {
+                                    HStack {
+                                        Text("Front Sim")
+                                            .font(.system(size: 20))
+                                        Spacer()
+                                        Text(viewmodel.asimfronthrsmin)
+                                            .frame(width: 50, alignment: .trailing)
+                                    }
                                 }
-                                VStack {
-                                    Text("Back SIM")
-                                        .font(.system(size: 20))
-                                    TextField("0", text: $viewmodel.asimbackhrsmin)
-                                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                                        .disableAutocorrection(true)
-                                        .frame(width: 50)
+                                .onChange(of: viewmodel.asimfronthrsmin) { newValue in
+                                    if let intValue = Int(newValue) {
+                                        SettingsManager.shared.asimfronthrs = intValue
+                                    }
+                                }
+                                
+                                NavigationLink(destination: HourPickerView(label: "Back Sim", binding: $viewmodel.asimbackhrsmin)) {
+                                    HStack {
+                                        Text("Back Sim")
+                                            .font(.system(size: 20))
+                                        Spacer()
+                                        Text(viewmodel.asimbackhrsmin)
+                                            .frame(width: 50, alignment: .trailing)
+                                    }
+                                }
+                                .onChange(of: viewmodel.asimbackhrsmin) { newValue in
+                                    if let intValue = Int(newValue) {
+                                        SettingsManager.shared.asimbackhrs = intValue
+                                    }
                                 }
                             }
                         }
-                        .scenePadding()
-                        albutton(title: "UPDATE", bgroundcolor: .red, action: {
-                            // Update SettingsManager with new values from viewmodel
-                            SettingsManager.shared.birthday = viewmodel.bday
-                            SettingsManager.shared.cmstatus = viewmodel.cmstatus
-                            SettingsManager.shared.aircraft = viewmodel.acft
-                            SettingsManager.shared.semithrs = Int(viewmodel.semithrsmin) ?? 0
-                            SettingsManager.shared.seminhrs = Int(viewmodel.seminhrsmin) ?? 0
-                            SettingsManager.shared.seminghrs = Int(viewmodel.seminghrsmin) ?? 0
-                            SettingsManager.shared.seminshrs = Int(viewmodel.seminshrsmin) ?? 0
-                            SettingsManager.shared.seminshrs = Int(viewmodel.seminshrsmin) ?? 0
-                            SettingsManager.shared.semifronthrs = Int(viewmodel.semifronthrsmin) ?? 0
-                            SettingsManager.shared.semibackhrs = Int(viewmodel.semibackhrsmin) ?? 0
-                            SettingsManager.shared.semihwxhrs = Int(viewmodel.semihwxhrsmin) ?? 0
-                            SettingsManager.shared.asimhrs = Int(viewmodel.asimhrsmin) ?? 0
-                            firestoreQuery.updateValues()
-                            SettingsManager.shared.asimfronthrs = Int(viewmodel.asimfronthrsmin) ?? 0
-                            firestoreQuery.updateValues()
-                            SettingsManager.shared.asimbackhrs = Int(viewmodel.asimbackhrsmin) ?? 0
-                            firestoreQuery.updateValues()
-                            // Update displayed settings
-                            updateDisplayedSettings()
-                            // Dismiss keyboard
-                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        })
-                        .font(.system(size: 30))
-                        .offset(y: -20)
-                        .padding(.horizontal)
-                        .padding(.vertical)
+                        
+                        Section("Account") {
+                            Button("Logout") {
+                                showingLogoutAlert = true
+                            }
+                            .foregroundColor(.red)
+                            
+                            Button("Delete Account") {
+                                showingDeleteAccount = true
+                            }
+                            .foregroundColor(.red)
+                        }
                     }
                 }
                 .alert(isPresented: $showingLogoutAlert) {
@@ -239,297 +241,35 @@ struct SettingsView: View {
                         secondaryButton: .cancel()
                     )
                 }
-                .onAppear {
-                    // Initialize displayed settings on view load
-                    updateDisplayedSettings()
-                }
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            showingLogoutAlert = true
-                        }) {
-                            Text("LOGOUT")
-                                .font(.callout)
-                                .padding()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
-                            showingDeleteAccount = true
-                        }) {
-                            Text("Delete Account")
-                                .font(.callout)
-                                .padding()
-                        }
-                    }
+                .sheet(isPresented: $showingDeleteAccount) {
+                    DeleteAccountView(viewModel: DeleteAccountViewModel())
                 }
             }
-            .sheet(isPresented: $showingDeleteAccount) {
-                DeleteAccountView(viewModel: DeleteAccountViewModel())
-                // Fallback on earlier versions
-            }
-        } else {
-            // Fallback on earlier versions
-
-                ScrollView {
-                    HStack{
-                        Button("Logout") {
-                            showingLogoutAlert = true
-                        }.padding()
-                        Text("Settings")
-                            .font(.largeTitle)
-                            .bold()
-                            .foregroundColor(.red)
-                            .padding()
-                        Button("Delete Account") {
-                            showingDeleteAccount = true
-                        }
-                    }
-                    HStack {
-                        // Display user settings using @State properties
-                        Text(displayedBirthday)
-                            .padding()
-                        Text(displayedCMStatus)
-                            .padding()
-                        Text(displayedAircraft)
-                            .padding()
-                    }
-                    .offset(y: -10)
-                    Text("Required Hours")
-                        .font(.system(size: 30))
-                    HStack {
-                        Text("Total: \(displayedAthrs)")
-                        Text("NVG: \(displayedAnghrs)")
-                        if SettingsManager.shared.aircraft == "AH-64E" ||  SettingsManager.shared.aircraft == "AH-64D" {
-                            Text("NS: \(displayedAnshrs)")
-                        }
-                    }
-                    if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                        HStack{
-                            Text("Front: \(displayedFronthrs)")
-                            Text("Back: \(displayedBackhrs)")
-                        }
-                    }
-                    HStack {
-                        Text("N: \(displayedAnhrs)")
-                        Text("H/WX: \(displayedAhwxhrs)")
-                        Text("Sim: \(displayedsimhrs)")
-                    }
-                    if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                        HStack {
-                            Text("Front Sim: \(displayedsimseatFhrs)")
-                            Text("Back Sim: \(displayedsimseatBhrs)")
-                        }
-                    }
-                    Text("Birthday")
-                        .font(.system(size: 30))
-                        .scenePadding()
-                    DatePicker("Select a date", selection: $viewmodel.bday, displayedComponents: .date)
-                        .datePickerStyle(CompactDatePickerStyle())
-                        .labelsHidden()
-                    Text("Rated/NonRated")
-                        .font(.system(size: 30))
-                    if #available(iOS 17.0, *) {
-                        Picker(selection: $viewmodel.cmstatus, label: Text("CM STATUS")) {
-                            ForEach(cmstatus, id: \.self) { status in
-                                Text(status)
-                            }
-                        }.pickerStyle(.palette)
-                            .padding(.horizontal)
-                    } else {
-                        // Fallback on earlier versions
-                    }
-                    
-                    Text("AIRCRAFT")
-                        .font(.system(size: 30))
-                    Picker(selection: $viewmodel.acft, label: Text("Aircraft")) {
-                        ForEach(aircraft, id: \.self) { type in
-                            Text(type)
-                        }
-                    }
-                    
-                    Text("SemiAnnual Requirements")
-                        .font(.system(size: 30))
-                    HStack {
-                        VStack {
-                            Text("Total")
-                                .font(.system(size: 20))
-                            TextField("0", text: $viewmodel.semithrsmin)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .frame(width: 50)
-                        }.padding(.horizontal)
-                        
-                        VStack {
-                            Text("Night")
-                                .font(.system(size: 20))
-                            TextField("0", text: $viewmodel.seminhrsmin)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .frame(width: 50)
-                        }.padding(.horizontal)
-                        
-                        VStack {
-                            Text("NVG")
-                                .font(.system(size: 20))
-                            TextField("0", text: $viewmodel.seminghrsmin)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .frame(width: 50)
-                        }.padding(.horizontal)
-                    }
-                    
-                    HStack {
-                        if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                            VStack {
-                                Text("NS")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.seminshrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)}
-                        VStack {
-                            Text("H/WX")
-                                .font(.system(size: 20))
-                            TextField("0", text: $viewmodel.semihwxhrsmin)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .frame(width: 50)
-                        }.padding(.horizontal)
-                    }
-                    if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                        HStack {
-                            VStack {
-                                Text("Front")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.semifronthrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }.padding(.horizontal)
-                            
-                            VStack {
-                                Text("Back")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.semibackhrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                                
-                            }.padding(.horizontal)
-                        }
-                    }
-                    Text("SIM Requirements")
-                        .font(.system(size: 30))
-                    HStack{
-                        VStack {
-                            Text("TOTAL SIM")
-                            TextField("0", text: $viewmodel.asimhrsmin)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .disableAutocorrection(true)
-                                .frame(width: 50)
-                        }
-                        if viewmodel.acft == "AH-64E" || viewmodel.acft == "AH-64D" {
-                            VStack {
-                                Text("Front SIM")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.asimfronthrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }
-                            VStack {
-                                Text("Back SIM")
-                                    .font(.system(size: 20))
-                                TextField("0", text: $viewmodel.asimbackhrsmin)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .disableAutocorrection(true)
-                                    .frame(width: 50)
-                            }
-                        }
-                    }
-                    .scenePadding()
-                    albutton(title: "UPDATE", bgroundcolor: .red, action: {
-                        // Update SettingsManager with new values from viewmodel
-                        SettingsManager.shared.birthday = viewmodel.bday
-                        SettingsManager.shared.cmstatus = viewmodel.cmstatus
-                        SettingsManager.shared.aircraft = viewmodel.acft
-                        SettingsManager.shared.semithrs = Int(viewmodel.semithrsmin) ?? 0
-                        SettingsManager.shared.seminhrs = Int(viewmodel.seminhrsmin) ?? 0
-                        SettingsManager.shared.seminghrs = Int(viewmodel.seminghrsmin) ?? 0
-                        SettingsManager.shared.seminshrs = Int(viewmodel.seminshrsmin) ?? 0
-                        SettingsManager.shared.seminshrs = Int(viewmodel.seminshrsmin) ?? 0
-                        SettingsManager.shared.semifronthrs = Int(viewmodel.semifronthrsmin) ?? 0
-                        SettingsManager.shared.semibackhrs = Int(viewmodel.semibackhrsmin) ?? 0
-                        SettingsManager.shared.semihwxhrs = Int(viewmodel.semihwxhrsmin) ?? 0
-                        SettingsManager.shared.asimhrs = Int(viewmodel.asimhrsmin) ?? 0
-                        firestoreQuery.updateValues()
-                        SettingsManager.shared.asimfronthrs = Int(viewmodel.asimfronthrsmin) ?? 0
-                        firestoreQuery.updateValues()
-                        SettingsManager.shared.asimbackhrs = Int(viewmodel.asimbackhrsmin) ?? 0
-                        firestoreQuery.updateValues()
-                        // Update displayed settings
-                        updateDisplayedSettings()
-                        // Dismiss keyboard
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    })
-                    .font(.system(size: 30))
-                    .offset(y: -20)
-                    .padding(.horizontal)
-                    .padding(.vertical)
-            }
-            .alert(isPresented: $showingLogoutAlert) {
-                Alert(
-                    title: Text("Confirm Logout"),
-                    message: Text("Are you sure you want to logout?"),
-                    primaryButton: .destructive(Text("Logout")) {
-                        // Action to logout the user
-                        viewmodel.logout()
-                    },
-                    secondaryButton: .cancel()
-                )
-            }
-            .onAppear {
-                // Initialize displayed settings on view load
-                updateDisplayedSettings()
-            }
-            .sheet(isPresented: $showingDeleteAccount) {
-            DeleteAccountView(viewModel: DeleteAccountViewModel())
-            }
-        }
-    }
-    // update displayed settings
-    private func updateDisplayedSettings() {
-        displayedBirthday = formattedDate(SettingsManager.shared.birthday)
-        displayedCMStatus = SettingsManager.shared.cmstatus ?? ""
-        displayedAircraft = SettingsManager.shared.aircraft ?? ""
-        displayedAthrs = String(SettingsManager.shared.semithrs)
-        displayedAnhrs = String(SettingsManager.shared.seminhrs)
-        displayedAnghrs = String(SettingsManager.shared.seminghrs)
-        displayedAnshrs = String(SettingsManager.shared.seminshrs)
-        displayedFronthrs = String(SettingsManager.shared.semifronthrs)
-        displayedBackhrs = String(SettingsManager.shared.semibackhrs)
-        displayedAhwxhrs = String(SettingsManager.shared.semihwxhrs)
-        displayedsimhrs = String(SettingsManager.shared.asimhrs)
-        displayedsimseatFhrs = String(SettingsManager.shared.asimfronthrs)
-        displayedsimseatBhrs = String(SettingsManager.shared.asimbackhrs)
-    }
-    
-    //format Date into String
-    private func formattedDate(_ date: Date?) -> String {
-        if let date = date {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            return dateFormatter.string(from: date)
-        } else {
-            return ""
+            .navigationViewStyle(StackNavigationViewStyle()) // Force stack style for single-column layout on iPad
         }
     }
     
-    struct SettingsView_Previews: PreviewProvider {
-        static var previews: some View {
-            SettingsView()
+    struct HourPickerView: View {
+        var label: String
+        @Binding var binding: String
+        
+        var body: some View {
+            VStack {
+                Text(label)
+                    .bold()
+                    .font(.title)
+                Picker(selection: $binding, label: Text(label)) {
+                    ForEach(0...150, id: \.self) { hour in
+                        Text(String(hour))
+                            .tag(String(hour)) // Ensure the tag matches the binding type
+                    }
+                }
+                .pickerStyle(WheelPickerStyle()) // Use wheel picker style
+                .frame(height: 200) // Adjust height for the wheel picker
+                .clipped() // Optional: to avoid overflow if the picker is too tall
+                
+                Spacer() // Push the picker up
+            }
         }
     }
 }

@@ -2,89 +2,113 @@ import SwiftUI
 
 struct ForgotPasswordView: View {
     @StateObject var viewModel = ForgotPasswordViewModel()
-    @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        if #available(iOS 16.0, *) {
-            NavigationStack {
-                VStack {
-                    // HEADER
-                    Headerview(title: "Forgot Password?",
-                               subtitle: "We will Email you a Link to Reset",
-                               angle: -100,
-                               backgroundcolor: .red)
-                    .offset(y: -155)
-                    
-                    // LOGIN FORMS
-                    Form {
-                        if !viewModel.errorMessage.isEmpty {
-                            Text(viewModel.errorMessage)
-                                .foregroundColor(.red)
-                        }
-                        
-                        TextField("Email Address", text: $viewModel.email)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .autocapitalization(.none)
-                            .autocorrectionDisabled(true)
-                        
-                        albutton(title: "Reset Password", bgroundcolor: .green) {
-                            viewModel.forgotPassword()
-                            showAlert = true // Show alert when password reset is requested
-                        }
-                        .disabled(viewModel.email.isEmpty) // Disable button if email is empty
-                    }
+        VStack(spacing: 45) {
+            forgotpasswordtopview()
+            
+            forgotpasswordemailTF(viewModel: viewModel) // Pass the view model
+            
+            Button(action: {
+                viewModel.forgotPassword()
+                if viewModel.isResetSuccessful {
+                    showAlert = true
+                }
+            }, label: {
+                Text("Send Reset Email")
+                    .foregroundStyle(.background)
+                    .font(.title2.bold())
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .background(.primary, in: .rect(cornerRadius: 16))
+            })
+            .tint(.primary)
+            
+            if !viewModel.errorMessage.isEmpty {
+                Text(viewModel.errorMessage)
+                    .foregroundColor(.red)
+            }
+            Button(action: {
+                dismiss()
+            }, label: {
+                Text("Back to SignIn")
+                    .foregroundColor(.primary)
+            })
+        }
+        .padding(.horizontal)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Password Reset Email Sent"),
+                message: Text("An email has been sent to \(viewModel.email) with instructions to reset your password."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+    }
+}
+
+struct forgotpasswordtopview: View {
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("ACES FLIGHT LOG")
+                .fontWeight(.bold)
+                .foregroundColor(.red)
+                .font(.system(size: 300))
+                .minimumScaleFactor(0.01)
+                .lineLimit(1)
+            
+            HStack {
+                Image("uh60")
+                    .resizable()
+                    .scaledToFit()
                     .padding()
-                    
-                    // Navigation Link to go back to Login
-                    NavigationLink(destination: LoginView()) {
-                        Text("Back to Login")
-                            .foregroundColor(.blue)
-                    }
-                    .padding(.top, 20)
-                    
-                }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text("Password Reset Email Sent"),
-                          message: Text("An email has been sent to \(viewModel.email) with instructions to reset your password."),
-                          dismissButton: .default(Text("OK")))
-                }
-            }.navigationBarBackButtonHidden(true)
-        } else {
-            // Fallback on earlier versions
-            VStack {
-                // HEADER
-                Headerview(title: "Forgot Password?",
-                           subtitle: "We will Email you a Link to Reset",
-                           angle: -100,
-                           backgroundcolor: .red)
-                .offset(y: -155)
-                
-                // LOGIN FORMS
-                Form {
-                    if !viewModel.errorMessage.isEmpty {
-                        Text(viewModel.errorMessage)
-                            .foregroundColor(.red)
-                    }
-                    
-                    TextField("Email Address", text: $viewModel.email)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
-                        .autocorrectionDisabled(true)
-                    
-                    albutton(title: "Reset Password", bgroundcolor: .green) {
-                        viewModel.forgotPassword()
-                        showAlert = true // Show alert when password reset is requested
-                    }
-                    .disabled(viewModel.email.isEmpty) // Disable button if email is empty
-                }
+                Image("ah64")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Image("ch47")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
+                Image("uh72")
+                    .resizable()
+                    .scaledToFit()
+                    .padding()
             }
         }
     }
 }
 
-struct ForgotPasswordView_Previews: PreviewProvider {
-    static var previews: some View {
-        ForgotPasswordView()
+struct forgotpasswordemailTF: View {
+    @ObservedObject var viewModel: ForgotPasswordViewModel // Use ObservedObject
+    
+    @FocusState private var isActive: Bool
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 16) {
+            ZStack(alignment: .leading) {
+                TextField("", text: $viewModel.email)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .focused($isActive)
+                    .background(.gray.opacity(0.3), in: .rect(cornerRadius: 16))
+                
+                Text("Email")
+                    .padding(.leading)
+                    .offset(y: (isActive || !viewModel.email.isEmpty) ? -35 : 0)
+                    .animation(.spring, value: isActive)
+                    .onTapGesture {
+                        isActive = true
+                    }
+            }
+        }
     }
+}
+
+#Preview {
+    ForgotPasswordView()
 }

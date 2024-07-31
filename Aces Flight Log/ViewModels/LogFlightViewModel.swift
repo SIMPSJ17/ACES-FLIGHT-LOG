@@ -11,13 +11,13 @@ class LogFlightViewModel: ObservableObject {
     @Published var logseatposition: String = "F"
     @Published var logflighthrs: Double = 0.0
     @Published var showAlert = false
-
+    
     init() {}
-
+    
     var formattedHours: String {
         return String(format: "%.1f", logflighthrs)
     }
-
+    
     func save() {
         guard canSave else {
             return
@@ -39,17 +39,17 @@ class LogFlightViewModel: ObservableObject {
             hours: self.logflighthrs,
             createdDate: Date().timeIntervalSince1970
         ).asDictionary()
-
+        
         let db = Firestore.firestore()
         let collectionRef = db.collection("users").document(uId).collection("FlightLog")
         
         // Check if there is a document with space for logs
-        collectionRef.whereField("entryCount", isLessThan: 1500).limit(to: 1).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("entryCount", isLessThan: 1200).limit(to: 1).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching documents: \(error.localizedDescription)")
                 return
             }
-
+            
             if let document = querySnapshot?.documents.first {
                 let documentRef = document.reference
                 db.runTransaction({ (transaction, errorPointer) -> Any? in
@@ -88,8 +88,8 @@ class LogFlightViewModel: ObservableObject {
             }
         }
     }
-
-
+    
+    
     var canSave: Bool {
         // Check if logdate is on or before today
         guard logdate <= Date() else {

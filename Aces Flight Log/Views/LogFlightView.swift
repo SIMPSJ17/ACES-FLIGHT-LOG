@@ -3,13 +3,12 @@ import SwiftUI
 struct LogFlightView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewmodel = LogFlightViewModel()
-    var aircraft = ["UH-60L", "UH-60M", "HH-60L", "HH-60M", "CH-47", "AH-64E", "AH-64D", "MH-60M", "MH-47G", "UH-72A", "TH-67", "SIM"]
-    var rcmduty = ["PI", "PC", "IP", "UT", "MF", "IE", "SP", "ME", "XP"]
-    var nrcmduty = ["CE", "SI", "FE", "FI", "OR"]
-    var condition = ["D", "N", "NG", "NS", "H", "W"]
-    var seatAH = ["F", "B"]
-    var seat = ["L", "R"]
+    @StateObject var pickermodel = pickerlist()
+
+    
     @State private var defaultAircraft: String = ""
+    
+    @State var isTapped = false
 
     var body: some View {
         VStack {
@@ -17,90 +16,100 @@ struct LogFlightView: View {
                 .font(.system(size: 40))
                 .bold()
                 .padding()
-            
-            Text("Date of Flight")
-                .font(.system(size: 30))
-            DatePicker("Select a date", selection: $viewmodel.logdate, displayedComponents: .date)
-                .datePickerStyle(CompactDatePickerStyle())
-                .labelsHidden()
-                .font(.system(size: 30))
-            
-            Text("Aircraft")
-                .font(.system(size: 30))
-            Picker(selection: $viewmodel.logflightacft, label: Text("Aircraft")) {
-                ForEach(aircraft, id: \.self) { selacft in
-                    Text(selacft)
-                        .tag(selacft)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-            .onAppear {
-                if let defaultAircraft = SettingsManager.shared.aircraft {
-                    // Use the unwrapped value as the default selection
-                    self.viewmodel.logflightacft = defaultAircraft
-                } else {
-                    // Default to the first item in the aircraft array
-                    self.viewmodel.logflightacft = aircraft.first ?? ""
-                }
-            }
-            
-            Text("Duty")
-                .font(.system(size: 30))
-            Picker(selection: $viewmodel.logflightduty, label: Text("Duty")) {
-                ForEach(dutyOptions, id: \.self) { duty in
-                    Text(duty)
-                        .tag(duty)
-                }
-            }
-            .pickerStyle(MenuPickerStyle())
-            
-            Text("Condition")
-                .font(.system(size: 30))
-            Picker(selection: $viewmodel.logflightcondition, label: Text("Condition")) {
-                ForEach(condition, id: \.self) { conditionItem in
-                    Text(conditionItem)
-                        .tag(conditionItem)
-                }
-            }
-            
-            if viewmodel.logflightacft == "AH-64E" ||
-               viewmodel.logflightacft == "AH-64D" ||
-               (viewmodel.logflightacft == "SIM" &&
-                (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
-                
-                Text("Seat")
+                .foregroundColor(.red)
+            HStack{
+                Text("Date of Flight")
                     .font(.system(size: 30))
-                Picker(selection: $viewmodel.logseatposition, label: Text("Seat")) {
-                    ForEach(seatAH, id: \.self) { status in
-                        Text(status)
-                            .pickerStyle(MenuPickerStyle())
+                DatePicker("Select a date", selection: $viewmodel.logdate, displayedComponents: .date)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .labelsHidden()
+                    .font(.system(size: 30))
+            }
+            HStack{
+                Text("Aircraft")
+                    .font(.system(size: 30))
+                Picker(selection: $viewmodel.logflightacft, label: Text("Aircraft")) {
+                    ForEach(pickermodel.aircraft, id: \.self) { selacft in
+                        Text(selacft)
+                            .tag(selacft)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+                .onAppear {
+                    if let defaultAircraft = SettingsManager.shared.aircraft {
+                        // Use the unwrapped value as the default selection
+                        self.viewmodel.logflightacft = defaultAircraft
+                    } else {
+                        // Default to the first item in the aircraft array
+                        self.viewmodel.logflightacft = pickermodel.aircraft.first ?? ""
+                    }
+                }
+            }
+            HStack{
+                Text("Duty")
+                    .font(.system(size: 30))
+                Picker(selection: $viewmodel.logflightduty, label: Text("Duty")) {
+                    ForEach(dutyOptions, id: \.self) { duty in
+                        Text(duty)
+                            .tag(duty)
+                    }
+                }
+                .pickerStyle(MenuPickerStyle())
+            }
+            HStack{
+                Text("Condition")
+                    .font(.system(size: 30))
+                Picker(selection: $viewmodel.logflightcondition, label: Text("Condition")) {
+                    ForEach(pickermodel.condition, id: \.self) { conditionItem in
+                        Text(conditionItem)
+                            .tag(conditionItem)
+                    }
+                }
+            }
+            
+                if viewmodel.logflightacft == "AH-64E" ||
+                    viewmodel.logflightacft == "AH-64D" ||
+                    (viewmodel.logflightacft == "SIM" &&
+                     (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
+                    HStack{
+                    Text("Seat")
+                        .font(.system(size: 30))
+                    Picker(selection: $viewmodel.logseatposition, label: Text("Seat")) {
+                        ForEach(pickermodel.seatAH, id: \.self) { status in
+                            Text(status)
+                                .pickerStyle(MenuPickerStyle())
+                        }
                     }
                 }
             }
 
-            
-            Text("Time")
-                .font(.system(size: 30))
-            TextField("Enter hours (e.g., ##.#)", text: Binding(
-                get: {
-                    // Format the Double value as a String with one decimal place
-                    String(format: "%.1f", viewmodel.logflighthrs)
-                },
-                set: { newValue in
-                    // Attempt to convert the input String back to a Double
-                    if let number = Double(newValue) {
-                        // Update the view model's logflighthrs property
-                        viewmodel.logflighthrs = number
+            HStack{
+                Text("Time")
+                    .font(.system(size: 30))
+                TextField("Enter hours (e.g., ##.#)", text: Binding(
+                    get: {
+                        // Format the Double value as a String with one decimal place
+                        String(format: "%.1f", viewmodel.logflighthrs)
+                    },
+                    set: { newValue in
+                        // Attempt to convert the input String back to a Double
+                        if let number = Double(newValue) {
+                            // Update the view model's logflighthrs property
+                            viewmodel.logflighthrs = number
+                        }
                     }
-                }
-            ))
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .autocapitalization(.none)
-            .disableAutocorrection(true)
-            .frame(width: 150)
-            .padding(.bottom, 20)
+                )).multilineTextAlignment(.trailing)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none)
+                .disableAutocorrection(true)
+                .frame(width: 100)
+            }.padding()
             
+    
             Button(action: {
+                if viewmodel.logflightacft != "AH-64E" && viewmodel.logflightacft != "AH-64D" && (viewmodel.logflightacft == "SIM" && (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
+                    viewmodel.logseatposition = ""
+                }
                 if viewmodel.canSave {
                     presentationMode.wrappedValue.dismiss()
                     viewmodel.save()
@@ -108,19 +117,19 @@ struct LogFlightView: View {
                     viewmodel.showAlert = true
                 }
             }) {
-                Text("SAVE")
-                    .font(.system(size: 30))
+                Text("LOG FLIGHT")
+                    .font(.system(size: 20))
                     .padding()
                     .foregroundColor(.white)
                     .background(Color.red)
-                    .cornerRadius(10)
+                    .cornerRadius(30)
             }
             .padding(.top, 40)
         }
         .onAppear{
             viewmodel.logflightduty = dutyOptions.first ?? ""
-            viewmodel.logflightcondition = condition.first ?? ""
-            viewmodel.logseatposition = seatAH.first ?? ""
+            viewmodel.logflightcondition = pickermodel.condition.first ?? ""
+            viewmodel.logseatposition = pickermodel.seatAH.first ?? ""
         }
         .alert(isPresented: $viewmodel.showAlert) {
             Alert(
@@ -135,14 +144,16 @@ struct LogFlightView: View {
         let cmStatus = SettingsManager.shared.cmstatus
         switch cmStatus {
         case "RCM":
-            return rcmduty
+            return pickermodel.rcmduty
         case "NRCM":
-            return nrcmduty
+            return pickermodel.nrcmduty
         default:
-            return rcmduty // Default to rcmduty if cmstatus is not recognized
+            return pickermodel.rcmduty // Default to rcmduty if cmstatus is not recognized
         }
     }
 }
+
+
 
 #Preview {
     LogFlightView()

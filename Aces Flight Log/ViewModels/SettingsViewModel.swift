@@ -4,42 +4,64 @@ import FirebaseFirestore
 import Combine
 
 class SettingsViewModel: ObservableObject {
-    @Published var cmstatus: String = "RCM"
-    @Published var bday = Date()
-    @Published var semithrsmin = "48"
-    @Published var seminhrsmin = "1"
-    @Published var seminghrsmin = "9"
-    @Published var seminshrsmin = "9"
-    @Published var semihwxhrsmin = "3"
-    @Published var semifronthrsmin = "15"
-    @Published var semibackhrsmin = "15"
-    @Published var asimhrsmin = "12"
-    @Published var asimfronthrsmin = "15"
-    @Published var asimbackhrsmin = "15"
-    @Published var acft: String = "\(SettingsManager.shared.aircraft ?? "UH-60M")"
-    @Published var user: User? = nil
+    @Published var cmstatus: String
+    @Published var bday: Date
+    @Published var semithrsmin: String
+    @Published var seminhrsmin: String
+    @Published var seminghrsmin: String
+    @Published var seminshrsmin: String
+    @Published var semihwxhrsmin: String
+    @Published var semifronthrsmin: String
+    @Published var semibackhrsmin: String
+    @Published var asimhrsmin: String
+    @Published var asimfronthrsmin: String
+    @Published var asimbackhrsmin: String
+    @Published var acft: String
+    @Published var user: User?
+    @Published var userEmail: String
+    
+    @Published var displayedbday: String
     
     init() {
+        self.cmstatus = SettingsManager.shared.cmstatus ?? "RCM"
+        self.bday = SettingsManager.shared.birthday ?? Date()
+        self.semithrsmin = "\(SettingsManager.shared.semithrs)"
+        self.seminhrsmin = "\(SettingsManager.shared.seminhrs)"
+        self.seminghrsmin = "\(SettingsManager.shared.seminghrs)"
+        self.seminshrsmin = "\(SettingsManager.shared.seminshrs)"
+        self.semihwxhrsmin = "\(SettingsManager.shared.semihwxhrs)"
+        self.semifronthrsmin = "\(SettingsManager.shared.semifronthrs)"
+        self.semibackhrsmin = "\(SettingsManager.shared.semibackhrs)"
+        self.asimhrsmin = "\(SettingsManager.shared.asimhrs)"
+        self.asimfronthrsmin = "\(SettingsManager.shared.asimfronthrs)"
+        self.asimbackhrsmin = "\(SettingsManager.shared.asimbackhrs)"
+        self.acft = SettingsManager.shared.aircraft ?? "UH-60M"
+        self.userEmail = ""
+        self.displayedbday = "\(SettingsManager.shared.birthday ?? Date())"
+        
         fetchUser()
     }
     
     func fetchUser() {
-        guard let userId = Auth.auth().currentUser?.uid else {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("No user is currently signed in.")
             return
         }
+        
+        // Set the email directly from Firebase Authentication
+        self.userEmail = currentUser.email ?? ""
         let db = Firestore.firestore()
-        db.collection("users").document(userId).getDocument { [weak self] snapshot, error in
+        db.collection("users").document(currentUser.uid).getDocument { [weak self] snapshot, error in
             guard let data = snapshot?.data(), error == nil else {
                 return
             }
             
             DispatchQueue.main.async {
                 if let id = data["id"] as? String,
-                   let name = data["name"] as? String,
-                   let email = data["email"] as? String {
+                   let name = data["name"] as? String {
                     self?.user = User(id: id,
                                       name: name,
-                                      email: email,
+                                      email: self?.userEmail ?? "No email available",
                                       joined: data["joined"] as? TimeInterval ?? 0)
                 } else {
                     print("Error: User data is missing or invalid.")
@@ -57,10 +79,14 @@ class SettingsViewModel: ObservableObject {
     }
 }
 
+
+import Foundation
+
 class SettingsManager {
     static let shared = SettingsManager()
     
     private let defaults = UserDefaults.standard
+    
     // Keys for user settings
     private let birthdayKey = "UserBirthday"
     private let cmStatusKey = "UserCMStatus"
@@ -75,6 +101,49 @@ class SettingsManager {
     private let asimhrsKey = "UserAsimhrs"
     private let asimfronthrsKey = "UserAsimfronthrs"
     private let asimbackhrsKey = "UserAsimbackhrs"
+    
+    private init() {
+        // Set default values if not already set
+        if defaults.object(forKey: birthdayKey) == nil {
+            defaults.set(Date(), forKey: birthdayKey) // Set default date
+        }
+        if defaults.string(forKey: cmStatusKey) == nil {
+            defaults.set("RCM", forKey: cmStatusKey) // Set default cm status
+        }
+        if defaults.string(forKey: aircraftKey) == nil {
+            defaults.set("UH-60M", forKey: aircraftKey) // Set default aircraft
+        }
+        if defaults.integer(forKey: semithrsKey) == 0 {
+            defaults.set(48, forKey: semithrsKey) // Set default semithrs
+        }
+        if defaults.integer(forKey: seminhrsKey) == 0 {
+            defaults.set(1, forKey: seminhrsKey) // Set default seminhrs
+        }
+        if defaults.integer(forKey: seminghrsKey) == 0 {
+            defaults.set(9, forKey: seminghrsKey) // Set default seminghrs
+        }
+        if defaults.integer(forKey: seminshrsKey) == 0 {
+            defaults.set(9, forKey: seminshrsKey) // Set default seminshrs
+        }
+        if defaults.integer(forKey: semihwxhrsKey) == 0 {
+            defaults.set(3, forKey: semihwxhrsKey) // Set default semihwxhrs
+        }
+        if defaults.integer(forKey: semifronthrsKey) == 0 {
+            defaults.set(15, forKey: semifronthrsKey) // Set default semifronthrs
+        }
+        if defaults.integer(forKey: semibackhrsKey) == 0 {
+            defaults.set(15, forKey: semibackhrsKey) // Set default semibackhrs
+        }
+        if defaults.integer(forKey: asimhrsKey) == 0 {
+            defaults.set(12, forKey: asimhrsKey) // Set default asimhrs
+        }
+        if defaults.integer(forKey: asimfronthrsKey) == 0 {
+            defaults.set(15, forKey: asimfronthrsKey) // Set default asimfronthrs
+        }
+        if defaults.integer(forKey: asimbackhrsKey) == 0 {
+            defaults.set(15, forKey: asimbackhrsKey) // Set default asimbackhrs
+        }
+    }
     
     // MARK: - User Settings Properties
     
@@ -133,7 +202,7 @@ class SettingsManager {
     }
     
     var seminshrs: Int {
-        get{
+        get {
             return defaults.integer(forKey: seminshrsKey)
         }
         set {
@@ -149,6 +218,7 @@ class SettingsManager {
             defaults.set(newValue, forKey: semihwxhrsKey)
         }
     }
+    
     var semifronthrs: Int {
         get {
             return defaults.integer(forKey: semifronthrsKey)
@@ -175,6 +245,7 @@ class SettingsManager {
             defaults.set(newValue, forKey: asimhrsKey)
         }
     }
+    
     var asimfronthrs: Int {
         get {
             return defaults.integer(forKey: asimfronthrsKey)
@@ -183,6 +254,7 @@ class SettingsManager {
             defaults.set(newValue, forKey: asimfronthrsKey)
         }
     }
+    
     var asimbackhrs: Int {
         get {
             return defaults.integer(forKey: asimbackhrsKey)
@@ -191,4 +263,5 @@ class SettingsManager {
             defaults.set(newValue, forKey: asimbackhrsKey)
         }
     }
+
 }

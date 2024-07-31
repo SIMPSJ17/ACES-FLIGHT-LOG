@@ -4,6 +4,7 @@ import FirebaseFirestoreSwift
 import FirebaseAuth
 
 class Firestorequery: ObservableObject {
+    @StateObject var pickermodel = pickerlist()
     @Published var items: [FlightLogItem] = []
     @Published var totalHours: Double = 0.0
     @Published var totalngHours: Double = 0.0
@@ -51,11 +52,11 @@ class Firestorequery: ObservableObject {
     @Published var semi2Start: Date?
     @Published var semi2End: Date?
     
-    var aircraft = ["UH-60L", "UH-60M", "HH-60L", "HH-60M", "CH-47", "CH-47D", "CH-47F", "CH-47G" ,"AH-64E", "AH-64D", "MH-60M", "MH-47G", "MH-47E", "UH-72", "UH-72A", "TH-67", "TH-67A", "OH-58A", "OH-58B", "OH-58C", "OH-58D", "OH-58", "OH-6", "MH-6", "OH-6A", "AH-6"]
+    var aircraft = ["UH-60L", "UH-60M", "UH-60V", "HH-60L", "HH-60M", "CH-47", "CH-47D", "CH-47F", "CH-47G" ,"AH-64E", "AH-64D", "MH-60M", "MH-47G", "MH-47E", "UH-72", "UH-72A", "TH-67", "TH-67A", "OH-58A", "OH-58B", "OH-58C", "OH-58D", "OH-58", "OH-6", "MH-6", "OH-6A", "AH-6"]
     var rcmduty = ["PI", "PC", "IP", "UT", "MF", "IE", "SP", "ME", "XP"]
     var nrcmduty = ["CE", "SI", "FE", "FI", "OR"]
     
-    private var userId: String
+    var userId: String
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
     
@@ -448,9 +449,10 @@ class Firestorequery: ObservableObject {
             self.semi2End = nil
             return
         }
+        print(birthday)
 
         var calendar = Calendar.current
-        let timeZone = TimeZone(identifier: "America/New_York") ?? TimeZone.current
+        let timeZone = TimeZone.current
         calendar.timeZone = timeZone
 
         // Calculate the next birthday date based on today's date

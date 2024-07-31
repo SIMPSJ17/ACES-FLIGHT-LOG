@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */; };
+		A15D49352C58410D002BFC89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D49342C58410D002BFC89 /* CardView.swift */; };
 		A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */; };
 		A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */; };
 		A180D2F72BD9845E005D512F /* ImportLogListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */; };
@@ -30,7 +31,6 @@
 		A18DD4BE2BC8B4B400877DB1 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B22BC8B4B400877DB1 /* MainView.swift */; };
 		A18DD4BF2BC8B4B400877DB1 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */; };
 		A18DD4C02BC8B4B400877DB1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */; };
-		A18DD4C12BC8B4B400877DB1 /* StartPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */; };
 		A18DD4C42BC8B65900877DB1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C32BC8B65900877DB1 /* FirebaseAuth */; settings = {ATTRIBUTES = (Required, ); }; };
 		A18DD4C62BC8B65900877DB1 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C52BC8B65900877DB1 /* FirebaseFirestore */; };
 		A18DD4C82BC8B65900877DB1 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A18DD4C72BC8B65900877DB1 /* FirebaseFirestoreSwift */; };
@@ -47,11 +47,13 @@
 		A19F532C2C089B270049313D /* ReceiptParser in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532B2C089B270049313D /* ReceiptParser */; };
 		A19F532E2C089B380049313D /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532D2C089B380049313D /* RevenueCat */; };
 		A19F53302C089B4C0049313D /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = A19F532F2C089B4C0049313D /* RevenueCatUI */; };
+		A1C17B5F2C54509B003CB9E9 /* list.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C17B5E2C54509B003CB9E9 /* list.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportLogItemView.swift; sourceTree = "<group>"; };
 		A12EDC8B2BE8CEA5001D0859 /* Aces Flight Log.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Aces Flight Log.entitlements"; sourceTree = "<group>"; };
+		A15D49342C58410D002BFC89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogListViewModel.swift; sourceTree = "<group>"; };
@@ -74,7 +76,6 @@
 		A18DD4B22BC8B4B400877DB1 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartPageView.swift; sourceTree = "<group>"; };
 		A18DD4C92BC8B9A700877DB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A18DD4D32BC8C27C00877DB1 /* extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		A19851A22C089E600054FAA7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		A19851A62C08C33A0054FAA7 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		A1A86C852C0E0C1100130DD9 /* Aces Flight LogRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "Aces Flight LogRelease.entitlements"; sourceTree = "<group>"; };
+		A1C17B5E2C54509B003CB9E9 /* list.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = list.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,9 @@
 				A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */,
 				A180D3022BD9B603005D512F /* ImportLogItem.swift */,
 				A18DD47C2BC8B41F00877DB1 /* User.swift */,
+				A1C17B5E2C54509B003CB9E9 /* list.swift */,
+				A18DD4AB2BC8B4B400877DB1 /* albutton.swift */,
+				A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,16 +145,14 @@
 				A18DD4B22BC8B4B400877DB1 /* MainView.swift */,
 				A18DD4B02BC8B4B400877DB1 /* LoginView.swift */,
 				A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */,
-				A18DD4B52BC8B4B400877DB1 /* StartPageView.swift */,
+				A15D49342C58410D002BFC89 /* CardView.swift */,
 				A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */,
 				A180D2FE2BD98CED005D512F /* ImportLogListView.swift */,
 				A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */,
 				A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */,
 				A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */,
 				A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */,
-				A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */,
 				A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */,
-				A18DD4AB2BC8B4B400877DB1 /* albutton.swift */,
 				A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */,
 			);
 			path = Views;
@@ -292,13 +295,14 @@
 				A18DD4A22BC8B44400877DB1 /* Firestorequery.swift in Sources */,
 				A18DD4B72BC8B4B400877DB1 /* albutton.swift in Sources */,
 				A18DD4A62BC8B44400877DB1 /* MainViewModel.swift in Sources */,
-				A18DD4C12BC8B4B400877DB1 /* StartPageView.swift in Sources */,
 				A18DD4BF2BC8B4B400877DB1 /* RegisterView.swift in Sources */,
 				A19631562BC8B1A000EA3144 /* Aces_Flight_LogApp.swift in Sources */,
 				A18DD4BC2BC8B4B400877DB1 /* LoginView.swift in Sources */,
 				A18DD4BE2BC8B4B400877DB1 /* MainView.swift in Sources */,
+				A1C17B5F2C54509B003CB9E9 /* list.swift in Sources */,
 				A18DD4BB2BC8B4B400877DB1 /* LogFlightView.swift in Sources */,
 				A18DD4A82BC8B44400877DB1 /* SettingsViewModel.swift in Sources */,
+				A15D49352C58410D002BFC89 /* CardView.swift in Sources */,
 				A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */,
 				A18DD4C02BC8B4B400877DB1 /* SettingsView.swift in Sources */,
 				A18DD4B92BC8B4B400877DB1 /* LogBookItemView.swift in Sources */,
@@ -361,7 +365,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -419,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -441,7 +445,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Aces Flight Log/Aces Flight Log.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Aces Flight Log/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = /Applications;
 				DEVELOPMENT_TEAM = K498LX9UMP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -458,7 +462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -482,7 +486,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Aces Flight Log/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = /Applications;
 				DEVELOPMENT_TEAM = K498LX9UMP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -499,7 +503,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
