@@ -48,7 +48,7 @@ struct SettingsView: View {
                             }
                             
                             Picker("Aircraft", selection: $viewmodel.acft) {
-                                ForEach(pickermodel.aircraft.sorted(), id: \.self) { type in
+                                ForEach(pickermodel.aircraft.sorted().filter { $0 != "SIM" }, id: \.self) { type in
                                     Text(type)
                                 }
                             }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */; };
+		A1183C6F2C5B34AE0013F368 /* UpdateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */; };
 		A15D49352C58410D002BFC89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D49342C58410D002BFC89 /* CardView.swift */; };
 		A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */; };
 		A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */; };
@@ -52,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportLogItemView.swift; sourceTree = "<group>"; };
+		A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFunctions.swift; sourceTree = "<group>"; };
 		A12EDC8B2BE8CEA5001D0859 /* Aces Flight Log.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Aces Flight Log.entitlements"; sourceTree = "<group>"; };
 		A15D49342C58410D002BFC89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */,
+				A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */,
 				A18DD49D2BC8B44400877DB1 /* LoginViewModel.swift */,
 				A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */,
 				A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */,
@@ -279,6 +282,7 @@
 			files = (
 				A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */,
 				A180D3032BD9B603005D512F /* ImportLogItem.swift in Sources */,
+				A1183C6F2C5B34AE0013F368 /* UpdateFunctions.swift in Sources */,
 				A18DD47F2BC8B41F00877DB1 /* User.swift in Sources */,
 				A18DD4A42BC8B44400877DB1 /* LogFlightViewModel.swift in Sources */,
 				A19851A72C08C33A0054FAA7 /* UserViewModel.swift in Sources */,

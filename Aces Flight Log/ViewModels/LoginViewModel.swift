@@ -9,23 +9,25 @@ class LoginViewModel: ObservableObject{
     init (){}
     
     func login() {
-            guard validate() else {
-                return
-            }
+        guard validate() else {
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let self = self else { return }
             
-            Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-                guard let self = self else { return }
-                
-                if let error = error {
-                    // Handle login error
-                    self.errorMessage = "Login Failed"
-                } else {
-                    // Login successful
-                    // You can perform additional actions here, like navigating to another view
-                    print("User logged in successfully!")
-                }
+            if let error = error {
+                // Handle login error
+                self.errorMessage = "Login Failed: \(error.localizedDescription)"
+                print("Error signing in: \(error.localizedDescription)")
+            } else {
+                // Login successful
+                // You can perform additional actions here, like navigating to another view
+                print("User logged in successfully!")
             }
         }
+    }
+
         //require fields be entered
         private func validate() -> Bool{
             errorMessage = ""
