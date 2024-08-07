@@ -1,3 +1,12 @@
+VERSION 1.7 BUILD 1
+7 AUG 2024
+
+-Updated login function to handle error’s in the error = error
+
+-Corrected p1thrs, p2thrs, p2nhrs calculations
+
+-Added comments capability and implemented function to add the field to all the flightlogs if DB version for the user isn’t correct
+
 VERSION 1.5 BUILD 1
 31 JULY 2024
 
