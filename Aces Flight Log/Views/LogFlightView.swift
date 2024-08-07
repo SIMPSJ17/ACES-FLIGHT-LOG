@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftUI
 
 struct LogFlightView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -17,6 +18,7 @@ struct LogFlightView: View {
                 .bold()
                 .padding()
                 .foregroundColor(.red)
+            //DOF
             HStack{
                 Text("Date of Flight")
                     .font(.system(size: 30))
@@ -25,6 +27,7 @@ struct LogFlightView: View {
                     .labelsHidden()
                     .font(.system(size: 30))
             }
+            //AIRCRAFT
             HStack{
                 Text("Aircraft")
                     .font(.system(size: 30))
@@ -45,6 +48,7 @@ struct LogFlightView: View {
                     }
                 }
             }
+            //DUTY
             HStack{
                 Text("Duty")
                     .font(.system(size: 30))
@@ -56,6 +60,7 @@ struct LogFlightView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
             }
+            //CONDITION
             HStack{
                 Text("Condition")
                     .font(.system(size: 30))
@@ -66,7 +71,7 @@ struct LogFlightView: View {
                     }
                 }
             }
-            
+            //SEAT
                 if viewmodel.logflightacft == "AH-64E" ||
                     viewmodel.logflightacft == "AH-64D" ||
                     (viewmodel.logflightacft == "SIM" &&
@@ -82,7 +87,7 @@ struct LogFlightView: View {
                     }
                 }
             }
-
+            //TIME
             HStack{
                 Text("Time")
                     .font(.system(size: 30))
@@ -104,10 +109,11 @@ struct LogFlightView: View {
                 .disableAutocorrection(true)
                 .frame(width: 100)
             }.padding()
-            
+            CommentsField(logflightcomments: $viewmodel.logflightcomments, characterLimit: 50, pickerLabel: "Comments")
     
             Button(action: {
-                if viewmodel.logflightacft != "AH-64E" && viewmodel.logflightacft != "AH-64D" && (viewmodel.logflightacft == "SIM" && (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
+                if viewmodel.logflightacft != "AH-64E" && viewmodel.logflightacft != "AH-64D"
+                    && !(viewmodel.logflightacft == "SIM" && (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
                     viewmodel.logseatposition = ""
                 }
                 if viewmodel.canSave {
@@ -155,6 +161,97 @@ struct LogFlightView: View {
 
 
 
+
 #Preview {
     LogFlightView()
+}
+
+
+
+struct hourspicker: View {
+    @StateObject var viewmodel = LogFlightViewModel()
+    @State private var selectedHours = 0
+    @State private var selectedDecimal = 0 // Decimal fraction in tenths of an hour
+    
+    // Compute the combined time as a double
+    private var combinedTimeAsDouble: Double {
+        // Combine hours and decimal part into a double format (e.g., 2 hours and 5 tenths -> 2.5)
+        return Double(selectedHours) + Double(selectedDecimal) / 10.0
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                // Picker for Hours
+                Picker("Hours", selection: $selectedHours) {
+                    ForEach(0..<24) { hour in
+                        Text("\(hour)").tag(hour)
+                    }
+                }
+                
+                .pickerStyle(WheelPickerStyle())
+                .frame(width: 60, height: 100)
+                
+                Text(".")
+                    .font(.system(size: 30))
+                
+                // Picker for Decimal Representation of tenths of an hour
+                Picker("Decimal", selection: $selectedDecimal) {
+                    ForEach(0..<10) { decimal in
+                        Text(String(format: "%d", decimal)).tag(decimal)
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+                .frame(width: 40, height: 100)
+            }
+        }
+    }
+}
+
+
+struct CommentsField: View {
+    @Binding var logflightcomments: String
+    var characterLimit: Int
+    var pickerLabel: String
+    
+    @State private var typedCharacters: Int = 0
+    @FocusState private var isActive: Bool
+
+    var body: some View {
+        VStack {
+            ZStack(alignment: .leading) {
+                TextField("", text: $logflightcomments)
+                    .autocapitalization(.none)
+                    .autocorrectionDisabled(true)
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 55)
+                    .focused($isActive)
+                    .background(Color.gray.opacity(0.3).cornerRadius(16))
+                    .onChange(of: logflightcomments) { newValue in
+                        // Update character count
+                        typedCharacters = newValue.count
+                        
+                        // Enforce character limit
+                        if newValue.count > characterLimit {
+                            logflightcomments = String(newValue.prefix(characterLimit))
+                        }
+                    }
+                    .padding(.horizontal)
+
+                Text(pickerLabel)
+                    .padding(.leading)
+                    .offset(y: (isActive || !logflightcomments.isEmpty) ? -35 : 0)
+                    .animation(.spring(), value: isActive)
+                    .onTapGesture {
+                        isActive = true
+                    }
+                    .padding(.horizontal)
+            }
+
+            Text("\(typedCharacters) / \(characterLimit)")
+                .foregroundColor(.gray)
+                .padding(.leading, 240)
+        }
+    }
 }

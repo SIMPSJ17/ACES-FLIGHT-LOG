@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */; };
-		A1183C6F2C5B34AE0013F368 /* UpdateFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */; };
+		A10276962C60E5D100120160 /* EditFlightLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10276952C60E5D100120160 /* EditFlightLogView.swift */; };
 		A15D49352C58410D002BFC89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15D49342C58410D002BFC89 /* CardView.swift */; };
 		A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */; };
 		A16AD7312BD6727900C086B8 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */; };
 		A180D2F72BD9845E005D512F /* ImportLogListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */; };
 		A180D2FF2BD98CED005D512F /* ImportLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D2FE2BD98CED005D512F /* ImportLogListView.swift */; };
 		A180D3032BD9B603005D512F /* ImportLogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A180D3022BD9B603005D512F /* ImportLogItem.swift */; };
+		A184E8112C6149DF00440194 /* EditFLightLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A184E8102C6149DF00440194 /* EditFLightLogViewModel.swift */; };
 		A18DD47E2BC8B41F00877DB1 /* LogFlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */; };
 		A18DD47F2BC8B41F00877DB1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD47C2BC8B41F00877DB1 /* User.swift */; };
 		A18DD4A22BC8B44400877DB1 /* Firestorequery.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */; };
@@ -23,8 +24,6 @@
 		A18DD4A62BC8B44400877DB1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */; };
 		A18DD4A72BC8B44400877DB1 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */; };
 		A18DD4A82BC8B44400877DB1 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */; };
-		A18DD4B72BC8B4B400877DB1 /* albutton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AB2BC8B4B400877DB1 /* albutton.swift */; };
-		A18DD4B82BC8B4B400877DB1 /* Headerview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */; };
 		A18DD4B92BC8B4B400877DB1 /* LogBookItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */; };
 		A18DD4BA2BC8B4B400877DB1 /* LogbookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */; };
 		A18DD4BB2BC8B4B400877DB1 /* LogFlightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */; };
@@ -53,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportLogItemView.swift; sourceTree = "<group>"; };
-		A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateFunctions.swift; sourceTree = "<group>"; };
+		A10276952C60E5D100120160 /* EditFlightLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightLogView.swift; sourceTree = "<group>"; };
 		A12EDC8B2BE8CEA5001D0859 /* Aces Flight Log.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Aces Flight Log.entitlements"; sourceTree = "<group>"; };
 		A15D49342C58410D002BFC89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -61,6 +60,7 @@
 		A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogListViewModel.swift; sourceTree = "<group>"; };
 		A180D2FE2BD98CED005D512F /* ImportLogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogListView.swift; sourceTree = "<group>"; };
 		A180D3022BD9B603005D512F /* ImportLogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportLogItem.swift; sourceTree = "<group>"; };
+		A184E8102C6149DF00440194 /* EditFLightLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFLightLogViewModel.swift; sourceTree = "<group>"; };
 		A18DD47B2BC8B41F00877DB1 /* LogFlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFlight.swift; sourceTree = "<group>"; };
 		A18DD47C2BC8B41F00877DB1 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firestorequery.swift; sourceTree = "<group>"; };
@@ -69,8 +69,6 @@
 		A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		A18DD4AB2BC8B4B400877DB1 /* albutton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = albutton.swift; sourceTree = "<group>"; };
-		A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Headerview.swift; sourceTree = "<group>"; };
 		A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogBookItemView.swift; sourceTree = "<group>"; };
 		A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogbookView.swift; sourceTree = "<group>"; };
 		A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFlightView.swift; sourceTree = "<group>"; };
@@ -118,8 +116,6 @@
 				A180D3022BD9B603005D512F /* ImportLogItem.swift */,
 				A18DD47C2BC8B41F00877DB1 /* User.swift */,
 				A1C17B5E2C54509B003CB9E9 /* list.swift */,
-				A18DD4AB2BC8B4B400877DB1 /* albutton.swift */,
-				A18DD4AC2BC8B4B400877DB1 /* Headerview.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -128,12 +124,12 @@
 			isa = PBXGroup;
 			children = (
 				A18DD49E2BC8B44400877DB1 /* MainViewModel.swift */,
-				A1183C6E2C5B34AE0013F368 /* UpdateFunctions.swift */,
 				A18DD49D2BC8B44400877DB1 /* LoginViewModel.swift */,
 				A16AD7302BD6727900C086B8 /* ForgotPasswordViewModel.swift */,
 				A18DD49F2BC8B44400877DB1 /* RegisterViewModel.swift */,
 				A18DD49A2BC8B44400877DB1 /* Firestorequery.swift */,
 				A18DD49C2BC8B44400877DB1 /* LogFlightViewModel.swift */,
+				A184E8102C6149DF00440194 /* EditFLightLogViewModel.swift */,
 				A18DD4A02BC8B44400877DB1 /* SettingsViewModel.swift */,
 				A180D2F62BD9845E005D512F /* ImportLogListViewModel.swift */,
 				A19851A62C08C33A0054FAA7 /* UserViewModel.swift */,
@@ -150,13 +146,14 @@
 				A18DD4B32BC8B4B400877DB1 /* RegisterView.swift */,
 				A15D49342C58410D002BFC89 /* CardView.swift */,
 				A18DD4AE2BC8B4B400877DB1 /* LogbookView.swift */,
-				A180D2FE2BD98CED005D512F /* ImportLogListView.swift */,
-				A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */,
-				A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */,
 				A18DD4AF2BC8B4B400877DB1 /* LogFlightView.swift */,
+				A10276952C60E5D100120160 /* EditFlightLogView.swift */,
+				A180D2FE2BD98CED005D512F /* ImportLogListView.swift */,
 				A18DD4B42BC8B4B400877DB1 /* SettingsView.swift */,
 				A16AD72E2BD6725900C086B8 /* ForgotPasswordView.swift */,
 				A1923CC52C0FC3D300641403 /* DeleteAccountView.swift */,
+				A10092A92BE8D87D00090BF7 /* ImportLogItemView.swift */,
+				A18DD4AD2BC8B4B400877DB1 /* LogBookItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -282,14 +279,13 @@
 			files = (
 				A10092AA2BE8D87D00090BF7 /* ImportLogItemView.swift in Sources */,
 				A180D3032BD9B603005D512F /* ImportLogItem.swift in Sources */,
-				A1183C6F2C5B34AE0013F368 /* UpdateFunctions.swift in Sources */,
 				A18DD47F2BC8B41F00877DB1 /* User.swift in Sources */,
 				A18DD4A42BC8B44400877DB1 /* LogFlightViewModel.swift in Sources */,
 				A19851A72C08C33A0054FAA7 /* UserViewModel.swift in Sources */,
 				A1923CC62C0FC3D300641403 /* DeleteAccountView.swift in Sources */,
 				A18DD47E2BC8B41F00877DB1 /* LogFlight.swift in Sources */,
-				A18DD4B82BC8B4B400877DB1 /* Headerview.swift in Sources */,
 				A18DD4A52BC8B44400877DB1 /* LoginViewModel.swift in Sources */,
+				A184E8112C6149DF00440194 /* EditFLightLogViewModel.swift in Sources */,
 				A180D2FF2BD98CED005D512F /* ImportLogListView.swift in Sources */,
 				A16AD72F2BD6725900C086B8 /* ForgotPasswordView.swift in Sources */,
 				A180D2F72BD9845E005D512F /* ImportLogListViewModel.swift in Sources */,
@@ -297,9 +293,9 @@
 				A18DD4A72BC8B44400877DB1 /* RegisterViewModel.swift in Sources */,
 				A18DD4BA2BC8B4B400877DB1 /* LogbookView.swift in Sources */,
 				A18DD4A22BC8B44400877DB1 /* Firestorequery.swift in Sources */,
-				A18DD4B72BC8B4B400877DB1 /* albutton.swift in Sources */,
 				A18DD4A62BC8B44400877DB1 /* MainViewModel.swift in Sources */,
 				A18DD4BF2BC8B4B400877DB1 /* RegisterView.swift in Sources */,
+				A10276962C60E5D100120160 /* EditFlightLogView.swift in Sources */,
 				A19631562BC8B1A000EA3144 /* Aces_Flight_LogApp.swift in Sources */,
 				A18DD4BC2BC8B4B400877DB1 /* LoginView.swift in Sources */,
 				A18DD4BE2BC8B4B400877DB1 /* MainView.swift in Sources */,
@@ -466,7 +462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -507,7 +503,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "comaceslog.Aces-Flight-Log";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

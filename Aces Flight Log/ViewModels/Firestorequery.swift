@@ -51,21 +51,30 @@ class Firestorequery: ObservableObject {
     @Published var semi1End: Date?
     @Published var semi2Start: Date?
     @Published var semi2End: Date?
-    
+    let viewmodel = SettingsViewModel()
+
     var aircraft = ["UH-60L", "UH-60M", "UH-60V", "HH-60L", "HH-60M", "CH-47", "CH-47D", "CH-47F", "CH-47G" ,"AH-64E", "AH-64D", "MH-60M", "MH-47G", "MH-47E", "UH-72", "UH-72A", "TH-67", "TH-67A", "OH-58A", "OH-58B", "OH-58C", "OH-58D", "OH-58", "OH-6", "MH-6", "OH-6A", "AH-6"]
     var rcmduty = ["PI", "PC", "IP", "UT", "MF", "IE", "SP", "ME", "XP"]
     var nrcmduty = ["CE", "SI", "FE", "FI", "OR"]
-    
     var userId: String
     private var db = Firestore.firestore()
     private var listener: ListenerRegistration?
     
-    
+    //check the DB version it has then runs the add comments function
     init(userId: String) {
         self.userId = userId
-        fetchData(userId: userId)
+        print(SettingsManager.shared.DBversion)
+        if SettingsManager.shared.DBversion < 3 {
+            addCommentsFieldToFlightLogs {
+                self.fetchData(userId: userId)
+            }
+        } else {
+            fetchData(userId: userId)
+            print(SettingsManager.shared.DBversion)
+        }
+        print(SettingsManager.shared.DBversion)
     }
-    
+    //Is used to delete flighlog items that is saved as a map in the DB
     func delete(id: String) {
         guard let uId = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
@@ -96,7 +105,7 @@ class Firestorequery: ObservableObject {
             }
         }
     }
-    
+    //fetches all the documents in the collection flightlog then decodes the json into flightlogitems
     func fetchData(userId: String) {
         let collectionRef = db.collection("users").document(userId).collection("FlightLog")
         
@@ -135,8 +144,8 @@ class Firestorequery: ObservableObject {
             updateValues()
         }
     }
-
     
+    //func used to update vaules when a flight is logged
     func updateValues() {
         calculateDates()
         totalHours = calculateTotalHours()
@@ -180,7 +189,7 @@ class Firestorequery: ObservableObject {
         AsimfrontHours = calculateAsimfrontHours()
         AsimbackHours = calculateAsimbackHours()
     }
-    
+
     private func calculateTotalHours() -> Double {
         let totalItems = filterItemsByAllowedAircraft(items)
         return totalItems.reduce(0.0) { $0 + $1.hours }
@@ -190,14 +199,17 @@ class Firestorequery: ObservableObject {
         let ngItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "NG" }
         return ngItems.reduce(0.0) { $0 + $1.hours }
     }
+    
     private func calculatetotalfrontHours() -> Double {
-        let frontItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "F"}
+        let frontItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "F" && ($0.acft == "AH-64E" || $0.acft == "AH-64D")}
         return frontItems.reduce(0.0) {$0 + $1.hours}
     }
+    
     private func calculatetotalbackHours() -> Double {
-        let backItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "B"}
+        let backItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "B" && ($0.acft == "AH-64E" || $0.acft == "AH-64D")}
         return backItems.reduce(0.0) {$0 + $1.hours}
     }
+    
     private func calculateTotalWXHours() -> Double {
         let wxItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "W" }
         return wxItems.reduce(0.0) { $0 + $1.hours }
@@ -225,11 +237,11 @@ class Firestorequery: ObservableObject {
     }
     
     private func calculateP1tHours() -> Double {
-        guard let startDate = semi1Start, let endDate = semi2End else {
+        guard let startDate = semi1Start, let endDate = semi1End else {
             return 0.0
         }
-        let filteredItems = filterItemsByAllowedAircraft(items).filter { $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
-        return filteredItems.reduce(0.0) { $0 + $1.hours }
+        let p1tItems = filterItemsByAllowedAircraft(items).filter { $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        return p1tItems.reduce(0.0) { $0 + $1.hours }
     }
     
     private func calculateP1ngHours() -> Double {
@@ -244,7 +256,7 @@ class Firestorequery: ObservableObject {
         guard let startDate = semi1Start, let endDate = semi1End else {
             return 0.0
         }
-        let p1nsItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "NS" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p1nsItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "NS" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970}
         return p1nsItems.reduce(0.0) { $0 + $1.hours }
     }
     
@@ -260,7 +272,7 @@ class Firestorequery: ObservableObject {
         guard let startDate = semi1Start, let endDate = semi1End else {
             return 0.0
         }
-        let p1frontItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "F" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p1frontItems = filterItemsByAllowedAircraft(items).filter { ($0.seat == "F") && ($0.dof >= startDate.timeIntervalSince1970) && ($0.dof <= endDate.timeIntervalSince1970) && ($0.acft == "AH-64E" || $0.acft == "AH-64D") }
         return p1frontItems.reduce(0.0) { $0 + $1.hours }
     }
     
@@ -268,7 +280,7 @@ class Firestorequery: ObservableObject {
         guard let startDate = semi1Start, let endDate = semi1End else {
             return 0.0
         }
-        let p1backItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "B" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p1backItems = filterItemsByAllowedAircraft(items).filter { ($0.seat == "B") && ($0.dof >= startDate.timeIntervalSince1970) && ($0.dof <= endDate.timeIntervalSince1970) && ($0.acft == "AH-64E" || $0.acft == "AH-64D")}
         return p1backItems.reduce(0.0) { $0 + $1.hours }
     }
     
@@ -302,7 +314,7 @@ class Firestorequery: ObservableObject {
         guard let startDate = semi1Start, let endDate = semi1End else {
             return 0.0
         }
-        let p1frontItems = filterItemsBySim(items).filter { ($0.seat == "F") && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p1frontItems = filterItemsBySim(items).filter { ($0.seat == "F") && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970  }
         return p1frontItems.reduce(0.0) { $0 + $1.hours }
     }
     
@@ -318,8 +330,8 @@ class Firestorequery: ObservableObject {
         guard let startDate = semi2Start, let endDate = semi2End else {
             return 0.0
         }
-        let filteredItems = filterItemsByAllowedAircraft(items).filter { $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
-        return filteredItems.reduce(0.0) { $0 + $1.hours }
+        let p2tItems = filterItemsByAllowedAircraft(items).filter { $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        return p2tItems.reduce(0.0) { $0 + $1.hours }
     }
     
     private func calculateP2ngHours() -> Double {
@@ -337,24 +349,25 @@ class Firestorequery: ObservableObject {
         let p2nsItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "NS" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
         return p2nsItems.reduce(0.0) { $0 + $1.hours }
     }
+    
     private func calculateP2frontHours() -> Double {
-        guard let startDate = semi1Start, let endDate = semi2End else {
+        guard let startDate = semi2Start, let endDate = semi2End else {
             return 0.0
         }
-        let p2frontItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "F" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p2frontItems = filterItemsByAllowedAircraft(items).filter { ($0.seat == "F") && ($0.dof >= startDate.timeIntervalSince1970) && ($0.dof <= endDate.timeIntervalSince1970) && ($0.acft == "AH-64E" || $0.acft == "AH-64D")}
         return p2frontItems.reduce(0.0) { $0 + $1.hours }
     }
     
     private func calculateP2backHours() -> Double {
-        guard let startDate = semi1Start, let endDate = semi2End else {
+        guard let startDate = semi2Start, let endDate = semi2End else {
             return 0.0
         }
-        let p2backItems = filterItemsByAllowedAircraft(items).filter { $0.seat == "B" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
+        let p2backItems = filterItemsByAllowedAircraft(items).filter { ($0.seat == "B") && ($0.dof >= startDate.timeIntervalSince1970) && ($0.dof <= endDate.timeIntervalSince1970) && ($0.acft == "AH-64E" || $0.acft == "AH-64D")}
         return p2backItems.reduce(0.0) { $0 + $1.hours }
     }
     
     private func calculateP2nHours() -> Double {
-        guard let startDate = semi1Start, let endDate = semi2End else {
+        guard let startDate = semi2Start, let endDate = semi2End else {
             return 0.0
         }
         let p2nItems = filterItemsByAllowedAircraft(items).filter { $0.condition == "N" && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
@@ -386,6 +399,7 @@ class Firestorequery: ObservableObject {
         let p2hwxItems = filterItemsBySim(items).filter { ($0.condition == "H" || $0.condition == "W") && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
         return p2hwxItems.reduce(0.0) { $0 + $1.hours }
     }
+    
     private func calculateP2simfrontHours() -> Double {
         guard let startDate = semi2Start, let endDate = semi2End else {
             return 0.0
@@ -401,6 +415,7 @@ class Firestorequery: ObservableObject {
         let p1backItems = filterItemsBySim(items).filter { ($0.seat == "B") && $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
         return p1backItems.reduce(0.0) { $0 + $1.hours }
     }
+    
     private func calculateAtHours() -> Double {
         return p1tHours + p2tHours
     }
@@ -416,24 +431,31 @@ class Firestorequery: ObservableObject {
     private func calculateAnHours() -> Double {
         return p1nHours + p2nHours
     }
+    
     private func calculateAfrontHours() -> Double{
         return p1frontHours + p2frontHours
     }
+    
     private func calculateAbackHours() -> Double{
-        return p2backHours + p2backHours
+        return p1backHours + p2backHours
     }
+    
     private func calculateAhwxHours() -> Double {
         return p1hwxHours + p2hwxHours
     }
+    
     private func calculateAsimHours() -> Double {
-            return p1simHours + p2simHours
-        }
-    private func calculateAsimfrontHours() -> Double {
-            return p1simfrontHours + p2simfrontHours
+        return p1simHours + p2simHours
     }
+    
+    private func calculateAsimfrontHours() -> Double {
+        return p1simfrontHours + p2simfrontHours
+    }
+    
     private func calculateAsimbackHours() -> Double {
         return p1simbackHours + p2simbackHours
     }
+    
     private func totalHours(inDateRange startDate: Date, endDate: Date) -> Double {
         let filteredItems = filterItemsByAllowedAircraft(items).filter { $0.dof >= startDate.timeIntervalSince1970 && $0.dof <= endDate.timeIntervalSince1970 }
         return filteredItems.reduce(0.0) { $0 + $1.hours }
@@ -450,11 +472,11 @@ class Firestorequery: ObservableObject {
             return
         }
         print(birthday)
-
+        
         var calendar = Calendar.current
         let timeZone = TimeZone.current
         calendar.timeZone = timeZone
-
+        
         // Calculate the next birthday date based on today's date
         let today = Date()
         let todayComponents = calendar.dateComponents([.year, .month, .day], from: today)
@@ -465,36 +487,36 @@ class Firestorequery: ObservableObject {
             print("Failed to compute next birthday")
             return
         }
-
+        
         // Adjust next birthday if it has already passed or if the next birthday month is greater than the current month
         if birthdayComponents.month! < todayComponents.month! {
             nextBirthday = calendar.date(byAdding: .year, value: 1, to: nextBirthday)!
         }
-
+        
         print("Next birthday: \(nextBirthday)")
-
+        
         // Add one month to the next birthday and set the day to 1
         var components = DateComponents()
         components.month = 1
         components.day = -calendar.component(.day, from: nextBirthday) + 1
-
+        
         guard let firstDayOfFollowingMonth = calendar.date(byAdding: components, to: nextBirthday) else {
             print("Failed to compute first day of the following month")
             return
         }
-
+        
         print("First day of the month following the next birthday: \(firstDayOfFollowingMonth)")
-
+        
         guard let lastDayOfBirthdayMonth = calendar.date(byAdding: DateComponents(day: -1), to: firstDayOfFollowingMonth) else {
             print("Failed to compute last day of the birthday month")
             return
         }
-
+        
         print("Last day of the month following the next birthday: \(lastDayOfBirthdayMonth)")
-
+        
         self.semi2End = lastDayOfBirthdayMonth
         print("Semi2 End Date: \(self.semi2End!)")
-
+        
         // Subtract five months from semi2End and set the day to the 1st
         components = DateComponents()
         components.month = -5
@@ -502,15 +524,15 @@ class Firestorequery: ObservableObject {
             print("Failed to compute start of five months prior")
             return
         }
-
+        
         guard let firstDayOfFiveMonthsPrior = calendar.date(from: calendar.dateComponents([.year, .month], from: startOfFiveMonthsPrior)) else {
             print("Failed to set day to 1 of five months prior")
             return
         }
-
+        
         self.semi2Start = firstDayOfFiveMonthsPrior
         print("Semi2 Start Date: \(self.semi2Start!)")
-
+        
         // Subtract one day from semi2Start to set semi1End
         guard let semi1EndDate = calendar.date(byAdding: .day, value: -1, to: self.semi2Start!) else {
             print("Failed to compute semi1End")
@@ -518,7 +540,7 @@ class Firestorequery: ObservableObject {
         }
         self.semi1End = semi1EndDate
         print("Semi1 End Date: \(self.semi1End!)")
-
+        
         // Subtract five months from semi1End and set the day to 1
         components.month = -5
         components.day = 1 - calendar.component(.day, from: semi1EndDate)
@@ -526,11 +548,10 @@ class Firestorequery: ObservableObject {
             print("Failed to compute semi1Start")
             return
         }
-
+        
         self.semi1Start = semi1StartDate
         print("Semi1 Start Date: \(self.semi1Start!)")
     }
-
     
     private func filterItemsByAllowedAircraft(_ items: [FlightLogItem]) -> [FlightLogItem] {
         let filteredItems = items.filter { aircraft.contains($0.acft) }
@@ -538,11 +559,95 @@ class Firestorequery: ObservableObject {
         print(filteredItems)
         return filteredItems
     }
-
+    
     private func filterItemsBySim(_ items: [FlightLogItem]) -> [FlightLogItem] {
         let filteredItems = items.filter { !aircraft.contains($0.acft) }
         print("Items filtered by simulation:")
         print(filteredItems)
         return filteredItems
     }
+    //update DBFunctions go here add comments field to each map in the array logs then saves over document and loops over every document in the collection flightlog for the user
+    //also now sets all !AH-64 || !SIM aircraft seat to ""
+    private func addCommentsFieldToFlightLogs(completion: @escaping () -> Void) {
+        guard let uId = Auth.auth().currentUser?.uid else {
+            print("User not authenticated or UID not available.")
+            completion() // Call completion even if the operation fails
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users").document(uId).collection("FlightLog")
+        
+        collectionRef.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+                completion() // Call completion even if the operation fails
+                return
+            }
+            
+            guard let querySnapshot = querySnapshot else {
+                print("No documents found.")
+                completion() // Call completion even if there are no documents
+                return
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            
+            for document in querySnapshot.documents {
+                dispatchGroup.enter()
+                let documentRef = document.reference
+                db.runTransaction({ (transaction, errorPointer) -> Any? in
+                    let documentSnapshot: DocumentSnapshot
+                    do {
+                        documentSnapshot = try transaction.getDocument(documentRef)
+                    } catch let fetchError as NSError {
+                        errorPointer?.pointee = fetchError
+                        print("Error fetching document: \(fetchError.localizedDescription)")
+                        return nil
+                    }
+                    
+                    guard var logs = documentSnapshot.data()?["logs"] as? [[String: Any]] else {
+                        print("No 'logs' array found in document \(document.documentID).")
+                        return nil
+                    }
+                    
+                    logs = logs.map { log in
+                        var mutableLog = log
+                        
+                        // Ensure 'comments' field is set to an empty string if it doesn't exist
+                        if mutableLog["comments"] == nil {
+                            mutableLog["comments"] = ""
+                        }
+                        
+                        // Set 'seat' to an empty string if 'aircraft' is not "AH-64E" or "AH-64D"
+                        if let aircraft = mutableLog["acft"] as? String, !(aircraft == "AH-64E" || aircraft == "AH-64D" || aircraft == "SIM") {
+                            mutableLog["seat"] = ""
+                        }
+                        
+                        return mutableLog
+                    }
+                    
+                    transaction.updateData(["logs": logs], forDocument: documentRef)
+                    return nil
+                }) { _, error in
+                    if let error = error {
+                        print("Error updating document \(document.documentID): \(error.localizedDescription)")
+                    } else {
+                        print("Document \(document.documentID) updated successfully.")
+                    }
+                    dispatchGroup.leave()
+                }
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                // Update the DBversion and print to verify
+                SettingsManager.shared.DBversion = 3
+                print("DBversion updated to \(SettingsManager.shared.DBversion)")
+                completion() // Notify completion of the update process
+            }
+        }
+        print(SettingsManager.shared.DBversion)
+    }
+
 }
+

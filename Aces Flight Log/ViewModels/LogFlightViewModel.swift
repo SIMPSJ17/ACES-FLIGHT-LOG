@@ -10,6 +10,7 @@ class LogFlightViewModel: ObservableObject {
     @Published var logflightcondition: String = "D"
     @Published var logseatposition: String = "F"
     @Published var logflighthrs: Double = 0.0
+    @Published var logflightcomments: String = ""
     @Published var showAlert = false
     
     init() {}
@@ -28,6 +29,14 @@ class LogFlightViewModel: ObservableObject {
             return
         }
         
+        // sets the seat to be "" if the aircraft is not AH-64
+        let seatPosition: String
+        if logflightacft == "AH-64E" || logflightacft == "AH-64D" || (logflightacft == "SIM" && (SettingsManager.shared.aircraft == "AH-64E" || SettingsManager.shared.aircraft == "AH-64D")) {
+            seatPosition = self.logseatposition
+        } else {
+            seatPosition = ""
+        }
+        
         // Prepare the new log entry as a dictionary
         let newLogEntry = FlightLogItem(
             id: UUID().uuidString,
@@ -35,9 +44,10 @@ class LogFlightViewModel: ObservableObject {
             acft: self.logflightacft,
             duty: self.logflightduty,
             condition: self.logflightcondition,
-            seat: self.logseatposition,
+            seat: seatPosition, // Use the determined seat position
             hours: self.logflighthrs,
-            createdDate: Date().timeIntervalSince1970
+            createdDate: Date().timeIntervalSince1970,
+            comments: self.logflightcomments
         ).asDictionary()
         
         let db = Firestore.firestore()

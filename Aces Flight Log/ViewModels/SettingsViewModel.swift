@@ -19,7 +19,7 @@ class SettingsViewModel: ObservableObject {
     @Published var acft: String
     @Published var user: User?
     @Published var userEmail: String
-    
+    @Published var DBversion: Int
     @Published var displayedbday: String
     
     init() {
@@ -38,8 +38,8 @@ class SettingsViewModel: ObservableObject {
         self.acft = SettingsManager.shared.aircraft ?? "UH-60M"
         self.userEmail = ""
         self.displayedbday = "\(SettingsManager.shared.birthday ?? Date())"
-        
-        fetchUser()
+        self.DBversion = SettingsManager.shared.DBversion
+        fetchUser()//need this to be an int
     }
     
     func fetchUser() {
@@ -79,9 +79,6 @@ class SettingsViewModel: ObservableObject {
     }
 }
 
-
-import Foundation
-
 class SettingsManager {
     static let shared = SettingsManager()
     
@@ -101,6 +98,7 @@ class SettingsManager {
     private let asimhrsKey = "UserAsimhrs"
     private let asimfronthrsKey = "UserAsimfronthrs"
     private let asimbackhrsKey = "UserAsimbackhrs"
+    private let DBversionKey = "UserDBversion"
     
     private init() {
         // Set default values if not already set
@@ -263,5 +261,12 @@ class SettingsManager {
             defaults.set(newValue, forKey: asimbackhrsKey)
         }
     }
-
+    var DBversion: Int {
+        get {
+            return defaults.integer(forKey: DBversionKey)
+        }
+        set {
+            defaults.set(newValue, forKey: DBversionKey)
+        }
+    }
 }

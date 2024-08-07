@@ -10,5 +10,6 @@ struct FlightLogItem: Codable, Identifiable {
     let seat: String
     let hours: Double
     let createdDate: TimeInterval
-    var comments: String? // New field for comments
+    let comments: String
+
 }

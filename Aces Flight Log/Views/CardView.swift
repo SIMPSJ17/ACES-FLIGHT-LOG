@@ -32,10 +32,12 @@ struct CardView: View {
                 annualperiodview(firestoreQuery: firestoreQuery)
             }.tabViewStyle(.page)
             .indexViewStyle(.page(backgroundDisplayMode: .always))
+            .onAppear {
+                firestoreQuery.updateValues()
+            }
         }
     }
 }
-
 
 struct totalcardview: View {
     @StateObject var firestoreQuery: Firestorequery
@@ -49,7 +51,38 @@ struct totalcardview: View {
     
     var body: some View {
         VStack {
-            
+            if let aircraft = SettingsManager.shared.aircraft {
+                if aircraft.contains("60") {
+                    // Display image for uh60
+                    Image("uh60")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .frame(width: 200, height: 200) // Adjust size as needed
+                } else if aircraft.contains("64") {
+                    // Display image for ah64
+                    Image("ah64")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .frame(width: 200, height: 200) // Adjust size as needed
+                } else if aircraft.contains("47") {
+                    // Display image for ch47
+                    Image("ch47")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .frame(width: 200, height: 200) // Adjust size as needed
+                } else if aircraft.contains("72") {
+                    // Display image for uh72
+                    Image("uh72")
+                        .resizable()
+                        .scaledToFit()
+                        .padding()
+                        .frame(width: 200, height: 200) // Adjust size as needed
+                }
+            }
+
           Text ("TOTAL")
               .font(.title)
               Text("Total Hours: \(String(format: "%.1f", firestoreQuery.totalHours))")

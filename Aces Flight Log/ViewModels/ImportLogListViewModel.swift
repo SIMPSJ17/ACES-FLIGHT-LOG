@@ -11,6 +11,7 @@ class ImportLogListViewModel: NSObject, ObservableObject {
         let contents = try String(contentsOf: fileURL, encoding: .utf8)
         let rows = contents.components(separatedBy: "\n")
         var isFirstLine = true
+        let comments = ""
         
         for row in rows {
             if isFirstLine {
@@ -31,7 +32,8 @@ class ImportLogListViewModel: NSObject, ObservableObject {
                     condition: columns[3],
                     seat: columns[4],
                     hours: Double(columns[5]) ?? 0,
-                    createdDate: Date().timeIntervalSince1970
+                    createdDate: Date().timeIntervalSince1970,
+                    comments: comments
                 )
                 items.append(item)
             }
@@ -49,6 +51,7 @@ class ImportLogListViewModel: NSObject, ObservableObject {
             rootViewController.present(documentPicker, animated: true, completion: nil)
         }
     }
+    
     func pickCSVFileiOS15() {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.commaSeparatedText])
         documentPicker.delegate = self
@@ -90,15 +93,24 @@ class ImportLogListViewModel: NSObject, ObservableObject {
                 
                 for item in self.importLogItems {
                     if entryCount < 1500 {
+                        // Determine the seat value based on the aircraft type
+                        let seatPosition: String
+                        if item.acft == "AH-64E" || item.acft == "AH-64D" {
+                            seatPosition = item.seat
+                        } else {
+                            seatPosition = ""
+                        }
+                        
                         let newLog = [
                             "id": UUID().uuidString, // Generate a unique ID for each log item
                             "dof": item.dof,
                             "acft": item.acft,
                             "duty": item.duty,
                             "condition": item.condition,
-                            "seat": item.seat,
+                            "seat": seatPosition, // Use the determined seat position
                             "hours": item.hours,
-                            "createdDate": item.createdDate
+                            "createdDate": item.createdDate,
+                            "comments": "" // Always set comments to an empty string
                         ] as [String : Any]
                         
                         currentLogs.append(newLog)
@@ -121,15 +133,24 @@ class ImportLogListViewModel: NSObject, ObservableObject {
                 var logs = [[String: Any]]()
                 
                 for item in importLogItems {
+                    // Determine the seat value based on the aircraft type
+                    let seatPosition: String
+                    if item.acft == "AH-64E" || item.acft == "AH-64D" {
+                        seatPosition = item.seat
+                    } else {
+                        seatPosition = ""
+                    }
+                    
                     let newLog = [
                         "id": UUID().uuidString, // Generate a unique ID for each log item
                         "dof": item.dof,
                         "acft": item.acft,
                         "duty": item.duty,
                         "condition": item.condition,
-                        "seat": item.seat,
+                        "seat": seatPosition, // Use the determined seat position
                         "hours": item.hours,
-                        "createdDate": item.createdDate
+                        "createdDate": item.createdDate,
+                        "comments": "" // Always set comments to an empty string
                     ] as [String : Any]
                     
                     logs.append(newLog)
@@ -150,9 +171,6 @@ class ImportLogListViewModel: NSObject, ObservableObject {
             }
         }
     }
-
-
-
 }
 
 extension ImportLogListViewModel: UIDocumentPickerDelegate {

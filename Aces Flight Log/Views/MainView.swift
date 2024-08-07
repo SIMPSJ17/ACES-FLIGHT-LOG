@@ -7,7 +7,7 @@ struct MainView: View {
 
     var body: some View {
         Group {
-            if userViewModel.isSubscriptionActive {
+            if !userViewModel.isSubscriptionActive {
                 if viewModel.isSignedIn && !viewModel.currentUserId.isEmpty {
                     accountView
                 } else {
