@@ -1,11 +1,30 @@
+VERSION 2.0 BUILD 1
+8 AUG 2024
+
+      -Added edit capabilities to the logbook view had to make sure the information was being passed to the edit view first ended up being the problem had to start over after running into muiltiple problems and make sure I build it in the order I want the data to be passed and processed.
+      
+      -corrected the semi period functions had issues where p2nhrs and a couple others had the wrong date need to be careful when using copy paste
+      
+      -added an image to the total screen of the aircraft the user has selected. 
+      
+      -Created update function it makes sure all the logs in firestore have a comments field and if it doesn't sets it to "" then it itereates over every log and if the aircraft isnt set to sim or ah64 then it makes the seat blank
+      
+      -Added function to logflight and edit flight log save buttons to ensure that the seat is logged as "" if the required perameters to display  it are not met
+      
+      -adjusted the logbookitemview to display seat when it equals front or back to make sure sim logs with a seat position the seat is displayed.
+      
+      -Removed albutton & headerview as they are no longer needed.
+
+
+
 VERSION 1.7 BUILD 1
 7 AUG 2024
 
--Updated login function to handle error’s in the error = error
+      -Updated login function to handle error’s in the error = error
 
--Corrected p1thrs, p2thrs, p2nhrs calculations
+      -Corrected p1thrs, p2thrs, p2nhrs calculations
 
--Added comments capability and implemented function to add the field to all the flightlogs if DB version for the user isn’t correct
+      -Added comments capability and implemented function to add the field to all the flightlogs if DB version for the user isn’t correct
 
 VERSION 1.5 BUILD 1
 31 JULY 2024
